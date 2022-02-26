@@ -23,19 +23,20 @@ html{
   width:13px !important;
   height:13px !important;
 }
-.swiper-pagination{
+.mySwiper .swiper-pagination{
   position:absolute !important;
   width:100px !important;
   bottom:40px !important;
   left:40px !important;
 }
+
 @media  (max-width: 640px) { 
-  .swiper-pagination{
-    left:100px !important;
+  .mySwiper .swiper-pagination{
+      left:100px !important;
   }
  }
-.swiper{
-  width:100%;
+ .mySwiper{
+  width: max-content;
   position:relative  !important;
   display:flex  !important;
 }

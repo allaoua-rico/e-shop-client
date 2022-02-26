@@ -43,21 +43,23 @@ export default function Slider() {
       const nextRef = useRef(null)
       const swiper = useSwiper();
   return (
-    <div className='relative flex items-center group bg-[#f6f6f6]'>
+    <div className='relative flex items-center group bg-[#f6f6f6] xl:px-32'>
       <Swiper
+                // loop={true}
+
           spaceBetween={30}
           effect={"fade"}
           navigation={{nextEl:'.next',prevEl:'.prev'}}
           pagination={{clickable: true}}
-          onActiveIndexChange={({activeIndex})=>{setterArr.map((setter,index)=>{index===activeIndex?setter(true):setter(false)})}}
+          onTransitionEnd ={({activeIndex})=>{setterArr.map((setter,index)=>{index===activeIndex?setter(true):setter(false)})}}
           modules={[EffectFade, Navigation, Pagination]}
           className="mySwiper"
         >
             {sliderImages?.map((image,index)=>{
               return (
                 <SwiperSlide key={image}>
-              <div  className='relative overflow-hidden h-[400px] sm:h-[500px] md:h-[550px] '>
-                  <div className='absolute mt-[100px] sm:mt-[140px] px-[35px] z-10' >
+              <div  className='relative overflow-hidden h-[400px] sm:h-[500px] md:h-[550px]  '>
+                  <div className='absolute mt-[100px] sm:mt-[140px] px-[35px] z-20' >
                     <div className={'flex flex-col gap-y-2 text-[30px] sm:text-[3.25rem] tracking-wide	font-[350] translate-y-[500px] opacity-0 ' + (animationArr[index] && ' animate-[translateOpacity_2s_ease-in-out_forwards]')}> 
                       <div className='-mb-4'>
                         <span className='text-[#628787] font-bold'>Basic</span> Color
@@ -78,8 +80,7 @@ export default function Slider() {
                     src={image} alt={image} />
               </div>
               </SwiperSlide> )})}
-              <div className='mt-10'>
-              </div>
+ 
         </Swiper>
         <div className='flex justify-between w-full absolute'>
           <button className='prev z-10 cursor-pointer group scale-0 group-hover:scale-[1.1] transition-all duration-500 '>

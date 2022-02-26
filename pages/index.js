@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Header from './components.js/header/Header'
 import Nav from './components.js/Nav'
-import ProductArea from './components.js/ProductArea'
+import ProductArea from './components.js/ProductsArea.js/ProductArea'
 import Slider from './components.js/Slider'
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
       <Header/>
       <Nav/>
       <Slider/>
-      {/* <ProductArea/> */}
+      <ProductArea/>
       <main className={styles.main}>
         
       </main>
