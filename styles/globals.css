@@ -36,7 +36,8 @@ html{
   }
  }
  .mySwiper{
-  width: max-content;
+   width:100%;
+  /* width: max-content; */
   position:relative  !important;
   display:flex  !important;
 }

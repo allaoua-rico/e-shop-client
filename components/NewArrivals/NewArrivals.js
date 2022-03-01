@@ -1,7 +1,7 @@
 import React from 'react'
 import PASlider from './PASlider'
 
-export default function ProductArea() {
+export default function NewArrivals() {
   return (
     <div className='py-[115px] text-center overflow-visible'>
       <div className='mb-12'>
