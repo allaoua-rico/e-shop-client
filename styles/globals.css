@@ -1,43 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html{
-    background-color:white;
-    color:black;
+html {
+  background-color: white;
+  color: black;
 }
 @layer utilities {
-    /* Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 .swiper-pagination-bullet-active {
   background-color: #666666 !important;
 }
-.swiper-pagination-bullet{
-  width:13px !important;
-  height:13px !important;
+.swiper-pagination-bullet {
+  width: 13px !important;
+  height: 13px !important;
 }
-.mySwiper .swiper-pagination{
-  position:absolute !important;
-  width:100px !important;
-  bottom:40px !important;
-  left:40px !important;
+.mySwiper .swiper-pagination {
+  position: absolute !important;
+  width: 100px !important;
+  bottom: 40px !important;
+  left: 40px !important;
 }
-
-@media  (max-width: 640px) { 
-  .mySwiper .swiper-pagination{
-      left:100px !important;
+@media (max-width: 640px) {
+  .mySwiper .swiper-pagination {
+    left: 100px !important;
   }
- }
- .mySwiper{
-   width:100%;
+}
+.mySwiper {
+  width: 100%;
   /* width: max-content; */
-  position:relative  !important;
-  display:flex  !important;
+  position: relative !important;
+  display: flex !important;
+}
+.detailsSwiper {
+  height: 100%;
+  width: 100%;
+}
+.swiper-scrollbar {
+  height: 10px;
+}
+.MuiDialog-paper {
+  max-width: 85vh;
+  height: 85vw;
+  overflow: visible;
+}
+.MuiDialog-root {
+  background-color: rgba(0, 0, 0, 0.55);
+  cursor:zoom-out;
 }

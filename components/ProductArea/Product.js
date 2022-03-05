@@ -48,18 +48,22 @@ export default function Product({ id, title, image, price, rating }) {
   //     }
   // },[basket]);
   return (
-    <div className="  group overflow-hidden flex flex-col items-center justify-between">
+    <div className="h-full  group overflow-hidden flex flex-col items-center justify-between">
       {/* <div className="hover:backdrop-blur-sm transition duration-200 w-full h-full flex flex-col items-center justify-between"> */}
       {/* <img className={ matches ? `hidden` : `object-cover h-72 w-96 md:h-96  mb-4 `} src={image}/> */}
-      <div className="overflow-hidden cursor-pointer w-full">
-        <img
-          className="w-full group-hover:scale-110 transition-all duration-500"
-          src={image}
-        />
-      </div>
+      <Link href={`/details?id=${id}`} passHref>
+        <a className="overflow-hidden cursor-pointer h-full w-full">
+          <img
+            className="object-cover h-full group-hover:scale-110 transition-all duration-500"
+            src={image}
+          />
+        </a>
+      </Link>
       <div className="relative w-full">
-        <div className="py-5 w-full bg-white absolute transition-all duration-500
-         group-hover:-translate-y-10 opacity-0 z-10 group-hover:opacity-100">
+        <div
+          className=" flex items-center flex-col py-5 w-full bg-white absolute transition-all duration-500
+         group-hover:-translate-y-10 opacity-0 z-10 group-hover:opacity-100"
+        >
           {rating && (
             <div className="flex justify-center">
               <div className="flex items-center text-[#999999]">
@@ -73,9 +77,13 @@ export default function Product({ id, title, image, price, rating }) {
               </div>
             </div>
           )}
-          <p className="font-bold text-1xl w-full text-gray-400 hover:text-red-500 hover:cursor-pointer transition-all duration-500">{title}</p>
+          <p className="font-bold text-center text-1xl w-full text-gray-400 hover:text-red-500 hover:cursor-pointer transition-all duration-500">
+            {title}
+          </p>
           <p className=" text-center my-1  sm:text-base text-lg">${price}.00</p>
-          <button className="bg-black text-white font-bold py-3 px-6 rounded-full hover:bg-red-500 transition-all duration-500">Add To Cart</button>
+          <button className="bg-black w-fit text-white font-bold py-3 px-6 rounded-full hover:bg-red-500 transition-all duration-500">
+            Add To Cart
+          </button>
         </div>
         <div className="py-5 z-10 bg-white ">
           {rating && (
@@ -91,7 +99,7 @@ export default function Product({ id, title, image, price, rating }) {
               </div>
             </div>
           )}
-          <p className="font-bold text-1xl">{title}</p>
+          <p className="font-bold text-1xl text-center">{title}</p>
           <p className=" text-center my-1  sm:text-base text-lg">${price}.00</p>
         </div>
       </div>

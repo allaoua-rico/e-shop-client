@@ -41,17 +41,17 @@ export default function ProductArea({ cats }) {
   //   rating: 4,
   //   imagesArray: ["/products/product-16.jpg"],
   // };
-  // for (let i = 0; i < 8; i++) {
-  //   productElementsArray.push(
-  //     <Product
-  //       id={data._id}
-  //       title={data.title + i}
-  //       price={data.price}
-  //       rating={data.rating}
-  //       image={data.imagesArray[0]}
-  //     />
-  //   );
-  // }
+  data?.map((item) => {
+    productElementsArray.push(
+      <Product
+        id={item?._id}
+        title={item?.title}
+        price={item?.price}
+        rating={item?.rating}
+        image={item?.imagesArray[0]}
+      />
+    );
+  });
   let pageIndex = 1;
   return (
     <div className="w-full text-center overflow-visible ">
@@ -61,9 +61,16 @@ export default function ProductArea({ cats }) {
         </h2>
         <p className="text-[#9f99b3]">Top our product best selling</p>
       </div>
-      <div className="flex justify-between w-full">
-        <div className="flex gap-x-8 mb-4 w-full text-[15px]">
-          <button onClick={() => {setUrlIndexAndCat(1, " ");  }} > All PRODUCTS </button>
+      <div className="flex justify-center items-center md:justify-between  w-full flex-wrap md:flex-nowrap">
+        <div className="flex justify-center md:justify-start gap-x-8 mb-4 w-full text-[15px] flex-wrap">
+          <button
+            onClick={() => {
+              setUrlIndexAndCat(1, " ");
+            }}
+          >
+            {" "}
+            All PRODUCTS{" "}
+          </button>
           {cats?.map((cat) => (
             <button
               key={cat.name}
@@ -77,7 +84,7 @@ export default function ProductArea({ cats }) {
           ))}
         </div>
         <Link href="/products">
-          <div className="flex gap-x-3 items-center font-semibold text-sm cursor-pointer   ">
+          <div className="flex gap-x-3 mb-4 items-center font-semibold text-sm cursor-pointer   ">
             <div className="w-max">SEE ALL PRODUCTS</div>
             <IoIosArrowForward className="h-5 w-5 text-base	stroke-[1px]" />
           </div>

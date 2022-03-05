@@ -116,7 +116,7 @@ export default function Slider() {
           <IoIosArrowBack className="h-10 w-10 hover:fill-red-500 transition-all duration-300" />
         </button>
         <button className="next z-10 cursor-pointer group scale-0 group-hover:scale-[1.1] transition-all duration-500 ">
-          <IoIosArrowForward className="h-10 w-10 group-hover:fill-red-500 transition-all duration-300" />
+          <IoIosArrowForward className="h-10 w-10 hover:fill-red-500 transition-all duration-300" />
         </button>
       </div>
     </div>
