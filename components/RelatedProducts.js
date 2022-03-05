@@ -13,7 +13,7 @@ export default function RelatedProducts({ brand, cat,id }) {
       <h2 className="text-center text-2xl font-bold mb-8">RELATED PRODUCTS</h2>
       <div className="md:flex justify-center flex-wrap">
         {products?.map((item) => (
-          <div className="md:basis-1/2 px-4 lg:basis-1/3 ">
+          <div key={item.title} className="md:basis-1/2 px-4 lg:basis-1/3 ">
             <Product
                 id={item?._id}
               title={item?.title}

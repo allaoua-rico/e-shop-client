@@ -80,7 +80,7 @@ export default function ImagesDialog(props) {
             onActiveIndexChange={({ activeIndex }) => setIndex(activeIndex)}
           >
             {images.map((image) => (
-              <SwiperSlide className="w-full">
+              <SwiperSlide key={image} className="w-full">
                 <button
                   onClick={() => {
                     swiper?.activeIndex < images.length - 1
