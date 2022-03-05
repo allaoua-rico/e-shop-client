@@ -64,7 +64,7 @@ export default function DetailsSlider({ product }) {
         onActiveIndexChange={({ activeIndex }) => setIndex(activeIndex)}
       >
         {product?.imagesArray?.map((image, i) => (
-          <SwiperSlide className="relative">
+          <SwiperSlide key={image} className="relative">
             <div className="imgContainer">
               <Image
                 ref={imgRef}
