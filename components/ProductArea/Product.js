@@ -7,8 +7,11 @@ import { MdAddShoppingCart, MdStar } from "react-icons/md";
 import { IconButton } from "@mui/material";
 // import DescriptionIcon from '@mui/icons-material/Description';
 import Link from "next/link";
+import { useStateValue } from "../stateProvider";
 
 export default function Product({ id, title, image, price, rating }) {
+  const [{ basket }, dispatch] = useStateValue();
+
   const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
       color: "#ff9806",
@@ -29,7 +32,18 @@ export default function Product({ id, title, image, price, rating }) {
   //   }
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-
+  const addToBasket = () => {
+      dispatch({
+        type: "ADD_TO_BASKET",
+        item: {
+          id: id,
+          title: title,
+          image: image,
+          price: price,
+          //   rating:rating
+        },
+      });
+  };
   //     // console.log(matches)
   //     let styles={
   //         backgroundRepeat: 'no-repeat',
@@ -52,7 +66,7 @@ export default function Product({ id, title, image, price, rating }) {
       {/* <div className="hover:backdrop-blur-sm transition duration-200 w-full h-full flex flex-col items-center justify-between"> */}
       {/* <img className={ matches ? `hidden` : `object-cover h-72 w-96 md:h-96  mb-4 `} src={image}/> */}
       <Link href={`/details?id=${id}`} passHref>
-        <a className="overflow-hidden cursor-pointer h-full w-full">
+        <a className="overflow-hidden cursor-pointer h-full w-full aspect-[2/3]">
           <img
             className="object-cover h-full group-hover:scale-110 transition-all duration-500"
             src={image}
@@ -77,11 +91,11 @@ export default function Product({ id, title, image, price, rating }) {
               </div>
             </div>
           )}
-          <p className="font-bold text-center text-1xl w-full text-gray-400 hover:text-red-500 hover:cursor-pointer transition-all duration-500">
+          <p className="truncate font-bold text-center text-1xl w-full text-gray-400 hover:text-red-500 hover:cursor-pointer transition-all duration-500">
             {title}
           </p>
           <p className=" text-center my-1  sm:text-base text-lg">${price}.00</p>
-          <button className="bg-black w-fit text-white font-bold py-3 px-6 rounded-full hover:bg-red-500 transition-all duration-500">
+          <button onClick={addToBasket} className="bg-black w-fit text-white font-bold py-3 px-6 rounded-full hover:bg-red-500 transition-all duration-500">
             Add To Cart
           </button>
         </div>
@@ -99,7 +113,7 @@ export default function Product({ id, title, image, price, rating }) {
               </div>
             </div>
           )}
-          <p className="font-bold text-1xl text-center">{title}</p>
+          <p className="font-bold text-1xl text-center truncate">{title}</p>
           <p className=" text-center my-1  sm:text-base text-lg">${price}.00</p>
         </div>
       </div>

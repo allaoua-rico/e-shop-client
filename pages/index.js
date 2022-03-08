@@ -7,7 +7,7 @@ import Nav from "../components/Nav";
 import NewArrivals from "../components/NewArrivals/NewArrivals";
 import ProductArea from "../components/ProductArea/ProductArea";
 import Slider from "../components/Slider";
-import dbConnect from "../lib/dbConnect";
+import dbConnect from "../backLib/dbConnect";
 import ProductCategory from "../models/category";
 // var ProductCategory = mongoose.model("ProductCategory");
 

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DetailsSlider from "../components/DetailsSlider";
 import Header from "../components/header/Header";
-import dbConnect from "../lib/dbConnect";
+import dbConnect from "../backLib/dbConnect";
 import { useRouter } from "next/router";
 import Product from "../models/product";
 import DetailsSecondSlider from "../components/DetailsSecondSlider";
@@ -9,20 +9,46 @@ import RightDetails from "../components/RightDetails";
 import DetailsDesc from "../components/DetailsDesc";
 import RelatedProducts from "../components/RelatedProducts";
 import Contact from "../components/Contact";
+import Link from "next/link";
+import { useStateValue } from "../components/stateProvider";
 
 export default function Details({ product }) {
+  const [{basket},dispatch]=useStateValue();
+  const router = useRouter();
+
   const [number, setNumber] = useState(1);
   const details = JSON.parse(product);
-  console.log(details);
+  // console.log(details);
+  const addToBasket=  () => {
+    for(let i=0;i<number;i++){
+      dispatch({
+        type:"ADD_TO_BASKET",
+        item:{
+            id:details._id,
+            title:details.title,
+            image:details.imagesArray[0],
+            price:details.price,
+          //   rating:rating
+        }
+    });
+    }
+}
+  // useEffect(()=>{
+  // },[product])
+  useEffect(() => {
+    setNumber(1)
+  }, [router.asPath]);
   return (
     <div className="">
       <div className=" mx-[15px] sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
-      <Header />
-
+        <Header />
       </div>
 
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
-        Home /{" "}
+        <Link href={"/"}>
+          <div className="cursor-pointer mr-2">Home</div>
+        </Link>
+        {" /"}
         <span className="text-red-500 font-normal px-2"> Product Details</span>
       </div>
       <div className="sm:max-w-xl md:max-w-[800px] lg:max-w-[930px] xl:max-w-[1180px] px-10 md:px-20 h-8 mx-auto">
@@ -58,7 +84,7 @@ export default function Details({ product }) {
                     </button>
                   </div>
                 </div>
-                <button className="bg-black text-white items-stretch py-3 px-5 text-lg font-medium ">
+                <button onClick={addToBasket} className="bg-black text-white items-stretch py-3 px-5 text-lg font-medium hover:bg-red-500 transition-all duration-500 ">
                   Add To Cart
                 </button>
               </div>
@@ -75,7 +101,6 @@ export default function Details({ product }) {
           <Contact />
         </div>
       </div>
-
     </div>
   );
 }

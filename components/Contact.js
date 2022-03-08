@@ -38,7 +38,7 @@ export default function Contact() {
         <div className='text-center text-[#999999]'>
           <p>
             Mern stack web app written from scratch from front to end, design inspired<br/>
-            (I tried to recreate it as close as possible) from the template :
+            from the template :
           </p>
           <Link href="https://live.hasthemes.com/html/2/norda-preview/norda/index-2.html">
             <a className='text-blue-400 ml-1' href="https://live.hasthemes.com/html/2/norda-preview/norda/index-2.html">

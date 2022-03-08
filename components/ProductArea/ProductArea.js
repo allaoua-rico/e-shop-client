@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductsGrid from "./ProductsGrid";
 import Product from "./Product";
 import useSWR from "swr";
@@ -7,14 +7,14 @@ import { IoIosArrowForward } from "react-icons/io";
 
 export default function ProductArea({ cats }) {
   const baseUrl = `/api/products?page=`;
-  const [url, setUrl] = React.useState(baseUrl + 1);
+  const [url, setUrl] = useState(baseUrl + 1);
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data } = useSWR(url, fetcher);
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log(data);
   }, [data]);
-  React.useEffect(() => {
+  useEffect(() => {
     console.log(url);
   }, [url]);
 
