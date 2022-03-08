@@ -35,27 +35,12 @@ export default function products({ cats1 }) {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data } = useSWR(url, fetcher);
 
-  //   function setUrlParams(index, cat) {
-  //     // fct that take params: index and cat and change only one of them or both
-  //     // const currentIndex= url.split('?page=')[1];
-  //     const currentCat = url.split("&cat=")[1] || " ";
-  //     if (currentCat !== cat && cat !== "") {
-  //       // dispatch({
-  //       //     type:'SET_PAGE_INDEX',
-  //       //     pageIndex: 1
-  //       //   })
-  //       setUrl(baseUrl + index + "&cat=" + cat);
-  //     } else {
-  //       setUrl(baseUrl + index + "&cat=" + currentCat);
-  //     }
-  //   }
-
   let GridProductElementsArray = [];
   let ListProductElementsArray = [];
 
   data?.map((item) => {
-    priceRange[0] <= item.price &&
-      item.price <= priceRange[1] &&
+    if (priceRange[0] <= item.price &&
+      item.price <= priceRange[1]) {
       GridProductElementsArray.push(
         <Product
           id={item?._id}
@@ -64,11 +49,7 @@ export default function products({ cats1 }) {
           rating={item?.rating}
           image={item?.imagesArray[0]}
         />
-      );
-  });
-  data?.map((item) => {
-    priceRange[0] <= item.price &&
-      item.price <= priceRange[1] &&
+      )
       ListProductElementsArray.push(
         <ProductForList
           id={item?._id}
@@ -77,9 +58,12 @@ export default function products({ cats1 }) {
           rating={item?.rating}
           image={item?.imagesArray[0]}
           desc={item.desc}
+          brand={item.brand}
         />
       );
+    }
   });
+
   const matches = useMediaQuery("(min-width:640px)");
 
   useEffect(() => {
@@ -112,13 +96,10 @@ export default function products({ cats1 }) {
     }
   }, [viewLimit, cat, pageIndex, sort]);
 
-  useEffect(() => {
-    console.log(GridProductElementsArray);
-  }, [GridProductElementsArray]);
   // useEffect(() => {
-  //   console.log(   "fill-gray-400 active:fill-black duration-100 transition-all " +
-  //   (viewType ? " scale-0":" scale-100 "))
-  // }, [viewType]);
+  //   console.log(GridProductElementsArray);
+  // }, [GridProductElementsArray]);
+
   return (
     <div>
       <div className=" mx-[15px] sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
@@ -148,10 +129,10 @@ export default function products({ cats1 }) {
             {cats?.map((cat) => (
               <button
                 key={cat.name}
-                className="text-gray-400 font-medium"
+                className="text-gray-400 font-medium uppercase"
                 onClick={() => setCat(cat.name)}
               >
-                {cat.name.toUpperCase()}
+                {cat.name}
               </button>
             ))}
           </div>
