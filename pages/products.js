@@ -13,6 +13,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import ProductsList from "../components/ProductArea/ProductsList";
 import ProductForList from "../components/ProductArea/ProductForList";
+import RelatedProducts from "../components/RelatedProducts";
 
 export default function products({ cats1 }) {
   const cats = JSON.parse(cats1);
@@ -39,8 +40,7 @@ export default function products({ cats1 }) {
   let ListProductElementsArray = [];
 
   data?.map((item) => {
-    if (priceRange[0] <= item.price &&
-      item.price <= priceRange[1]) {
+    if (priceRange[0] <= item.price && item.price <= priceRange[1]) {
       GridProductElementsArray.push(
         <Product
           id={item?._id}
@@ -49,7 +49,7 @@ export default function products({ cats1 }) {
           rating={item?.rating}
           image={item?.imagesArray[0]}
         />
-      )
+      );
       ListProductElementsArray.push(
         <ProductForList
           id={item?._id}
@@ -143,6 +143,9 @@ export default function products({ cats1 }) {
               returnFilter={(arrayFilter) => setPriceRange(arrayFilter)}
             />
           </div>
+          {/* <LatestProducts
+
+          /> */}
         </div>
         <div className="viewAndProductGrid col-span-5 xl:col-span-4">
           <div className="border border-gray-300  my-3 px-3 py-4 flex justify-between items-center gap-y-2 ">
@@ -178,7 +181,7 @@ export default function products({ cats1 }) {
               </InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
-                id="demo-simple-select-autowidth"
+                // id="demo-simple-select-autowidth"
                 label="Products"
                 id="viewLimit"
                 name="viewLimit"
@@ -214,7 +217,7 @@ export default function products({ cats1 }) {
               </InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label-sort"
-                id="demo-simple-select-autowidth-sort"
+                // id="demo-simple-select-autowidth-sort"
                 label="Sort by:"
                 id="sort"
                 name="sort"

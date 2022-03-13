@@ -26,7 +26,7 @@ export default function Header() {
   },[basket])
   const lg = useMediaQuery("(max-width:1023px)");
   return (
-    <div className="flex py-7 lg:py-[60px] lg:border-b-[#dadada] lg:border-b  lg:px-0 px-4 justify-between items-center ">
+    <div className="flex py-7 lg:py-[60px] lg:border-b-[#dadada] lg:border-b  lg:px-0 px-4 justify-around items-center ">
       <div className="hidden lg:inline">
         <SearchInput />
       </div>

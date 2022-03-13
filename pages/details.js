@@ -48,8 +48,12 @@ export default function Details({ product }) {
         <Link href={"/"}>
           <div className="cursor-pointer mr-2">Home</div>
         </Link>
-        {" /"}
-        <span className="text-red-500 font-normal px-2"> Product Details</span>
+        {"/"}
+        <Link href={"/products"}>
+          <div className="cursor-pointer mx-2 ">Products</div>
+        </Link>
+        {"/"}
+        <span className="text-red-500 font-normal px-2">Product Details</span>
       </div>
       <div className="sm:max-w-xl md:max-w-[800px] lg:max-w-[930px] xl:max-w-[1180px] px-10 md:px-20 h-8 mx-auto">
         <div className="mx-3">
