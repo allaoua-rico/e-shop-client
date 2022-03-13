@@ -60,7 +60,7 @@ export default function CartDrawer({ toggle, returnValue }) {
       <div className=" mt-[60px] mx-[15px]">
         <h2 className="text-xl font-bold mb-[35px] ">Shopping Cart</h2>
         {slicedArray?.map((item) => (
-          <div className="flex gap-x-10">
+          <div key={item} className="flex gap-x-10">
             <Link href={`/details?id=${item.id}`}>
               <img
                 src={item.image}
