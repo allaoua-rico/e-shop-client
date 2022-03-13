@@ -14,8 +14,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { CircularProgress } from "@mui/material";
 import Contact from "../components/Contact";
+import { useStateValue } from "../components/stateProvider";
 
 export default function Login() {
+  const [{basket, user}, dispatch]= useStateValue();
   const [logReg, setLogReg] = useState(1);
   const [actualPassword, setActualPassword] = useState("");
   const [actualEmail, setActualEmail] = useState();
@@ -93,6 +95,16 @@ export default function Login() {
       .then((data) => {
         setResSpinner(false);
         console.log(data);
+        // data.message === "Successfully loggedIn" &&
+        //   dispatch({
+        //     type: "SET_USER",
+        //     user: {
+        //       username: data.username,
+        //       token: data.token,
+        //        role:data.role[0]
+        //     },
+        //   });
+
         data.message === "Email already assigned to an account." &&
           setActualEmail(values.email);
         data.message === "Invalid Email" && setActualEmail(values.email);
@@ -102,13 +114,14 @@ export default function Login() {
           setResponseMsg(data.message);
       });
   };
-  // dispatch({
-  //   type: "SET_USER",
-  //   user: {
-  //     username: data.username,
-  //     token: data.token,
-  //   },
-  // });
+  useEffect(() => {  
+    console.log(user)
+    if(user?.username!==null && user?.username!==undefined){
+        // localStorage.setItem("storageUser", JSON.stringify(user));
+        // let saved=JSON.parse(localStorage.getItem("storageUser"));
+        // saved.username!==null && saved.username!==undefined  && navigate('/');
+    }
+},[user]);
   const formik = useFormik({
     initialValues: {
       email: "aaa@gmail.com",
@@ -130,9 +143,7 @@ export default function Login() {
       <Header />
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
         <Link href="/" passHref>
-          <a className="cursor-pointer mr-2">
-            Home
-          </a>
+          <a className="cursor-pointer mr-2">Home</a>
         </Link>
         {" /"}
         <span className="text-red-500 font-normal px-2">Login</span>
@@ -267,7 +278,11 @@ export default function Login() {
                           color: "white",
                         }}
                       >
-                        {resSpinner ? <CircularProgress sx={{color:'white'}} /> : "Sign In"}
+                        {resSpinner ? (
+                          <CircularProgress sx={{ color: "white" }} />
+                        ) : (
+                          "Sign In"
+                        )}
                       </Button>
                     </div>
                   </Box>
@@ -277,7 +292,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <Contact/>
+      <Contact />
     </div>
   );
 }

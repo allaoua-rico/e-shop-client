@@ -52,7 +52,7 @@ async function handler(req, res) {
               (err, token) => {
                 err && res.json({ message: err });
                 return res.json({
-                  message: "Successfully logedIn",
+                  message: "Successfully loggedIn",
                   username: dbUser.email,
                   role: dbUser.role,
                   token: "Bearer " + token,

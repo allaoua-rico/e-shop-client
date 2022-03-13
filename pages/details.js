@@ -13,30 +13,30 @@ import Link from "next/link";
 import { useStateValue } from "../components/stateProvider";
 
 export default function Details({ product }) {
-  const [{basket},dispatch]=useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
   const router = useRouter();
 
   const [number, setNumber] = useState(1);
   const details = JSON.parse(product);
   // console.log(details);
-  const addToBasket=  () => {
-    for(let i=0;i<number;i++){
+  const addToBasket = () => {
+    for (let i = 0; i < number; i++) {
       dispatch({
-        type:"ADD_TO_BASKET",
-        item:{
-            id:details._id,
-            title:details.title,
-            image:details.imagesArray[0],
-            price:details.price,
+        type: "ADD_TO_BASKET",
+        item: {
+          id: details._id,
+          title: details.title,
+          image: details.imagesArray[0],
+          price: details.price,
           //   rating:rating
-        }
-    });
+        },
+      });
     }
-}
+  };
   // useEffect(()=>{
   // },[product])
   useEffect(() => {
-    setNumber(1)
+    setNumber(1);
   }, [router.asPath]);
   return (
     <div className="">
@@ -45,12 +45,16 @@ export default function Details({ product }) {
       </div>
 
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
-        <Link href={"/"}>
-          <div className="cursor-pointer mr-2">Home</div>
+        <Link passHref href={"/"}>
+          <a>
+            <div className="cursor-pointer mr-2">Home</div>
+          </a>
         </Link>
         {"/"}
-        <Link href={"/products"}>
-          <div className="cursor-pointer mx-2 ">Products</div>
+        <Link passHref href={"/products"}>
+          <a>
+            <div className="cursor-pointer mx-2 ">Products</div>
+          </a>
         </Link>
         {"/"}
         <span className="text-red-500 font-normal px-2">Product Details</span>
@@ -88,7 +92,10 @@ export default function Details({ product }) {
                     </button>
                   </div>
                 </div>
-                <button onClick={addToBasket} className="bg-black text-white items-stretch py-3 px-5 text-lg font-medium hover:bg-red-500 transition-all duration-500 ">
+                <button
+                  onClick={addToBasket}
+                  className="bg-black text-white items-stretch py-3 px-5 text-lg font-medium hover:bg-red-500 transition-all duration-500 "
+                >
                   Add To Cart
                 </button>
               </div>

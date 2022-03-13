@@ -61,7 +61,7 @@ export default function Slider() {
         {sliderImages?.map((image, index) => {
           return (
             <SwiperSlide key={image}>
-              <div className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[550px] xl:px-32 ">
+              <div key={image+' '+index} className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[550px] xl:px-32 ">
                 <div className="absolute mt-[100px] sm:mt-[140px] px-[35px] z-20">
                   <div
                     className={
@@ -87,17 +87,19 @@ export default function Slider() {
                     Est itaque inventore
                   </p>
 
-                  <Link href="/product-details">
-                    <div
-                      className={
-                        "flex gap-x-3 w-fit items-center font-semibold text-sm cursor-pointer translate-y-[500px] opacity-0 " +
-                        (animationArr[index] &&
-                          " animate-[translateOpacity_3s_ease-in-out_forwards]")
-                      }
-                    >
-                      EXPLORE NOW
-                      <IoIosArrowForward className="h-5 w-5 	text-base	stroke-[1px]" />
-                    </div>
+                  <Link passhref href="/product-details">
+                    <a>
+                      <div
+                        className={
+                          "flex gap-x-3 w-fit items-center font-semibold text-sm cursor-pointer translate-y-[500px] opacity-0 " +
+                          (animationArr[index] &&
+                            " animate-[translateOpacity_3s_ease-in-out_forwards]")
+                        }
+                      >
+                        EXPLORE NOW
+                        <IoIosArrowForward className="h-5 w-5 	text-base	stroke-[1px]" />
+                      </div>
+                    </a>
                   </Link>
                 </div>
                 <img

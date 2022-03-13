@@ -128,7 +128,7 @@ export default function Products({ cats1 }) {
             </button>
             {cats?.map((cat) => (
               <button
-                key={cat.name}
+                key={cat?.name}
                 className="text-gray-400 font-medium uppercase"
                 onClick={() => setCat(cat.name)}
               >
