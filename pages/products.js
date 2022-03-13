@@ -15,7 +15,7 @@ import ProductsList from "../components/ProductArea/ProductsList";
 import ProductForList from "../components/ProductArea/ProductForList";
 import RelatedProducts from "../components/RelatedProducts";
 
-export default function products({ cats1 }) {
+export default function Products({ cats1 }) {
   const cats = JSON.parse(cats1);
   // params for request
   const [viewLimit, setviewLimit] = useState(5);

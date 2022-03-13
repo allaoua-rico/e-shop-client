@@ -15,7 +15,7 @@ import * as yup from "yup";
 import { CircularProgress } from "@mui/material";
 import Contact from "../components/Contact";
 
-export default function login() {
+export default function Login() {
   const [logReg, setLogReg] = useState(1);
   const [actualPassword, setActualPassword] = useState("");
   const [actualEmail, setActualEmail] = useState();
