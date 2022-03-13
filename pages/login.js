@@ -130,7 +130,7 @@ export default function Login() {
       <Header />
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
         <Link href="/" passHref>
-          <a href="/" className="cursor-pointer mr-2">
+          <a className="cursor-pointer mr-2">
             Home
           </a>
         </Link>
