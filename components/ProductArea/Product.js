@@ -17,7 +17,6 @@ export default function Product({ id, title, image, price, rating }) {
       color: "#ff9806",
     },
   });
-  // const [{basket}, dispatch]= useStateValue();
   //     const addToBasket=  () => {
   //         dispatch({
   //           type:"ADD_TO_BASKET",
@@ -44,6 +43,13 @@ export default function Product({ id, title, image, price, rating }) {
         },
       });
   };
+//   useEffect(() => {  
+//     const storageBasket=JSON.parse(localStorage.getItem("basket"));
+//     // console.log(storageBasket?.length,basket?.length)
+//     if(storageBasket?.length !== basket?.length){
+//         localStorage.setItem("basket",JSON.stringify(basket));
+//     }
+// },[basket]);
   //     // console.log(matches)
   //     let styles={
   //         backgroundRepeat: 'no-repeat',

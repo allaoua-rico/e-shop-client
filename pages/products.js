@@ -22,6 +22,7 @@ export default function Products({ cats1 }) {
   const [viewType, setViewType] = useState(1);
   const [cat, setCat] = useState(" ");
   const [sort, setSort] = useState("recent");
+  const [boldCat, setBoldCat] = useState(" ");
 
   // pagination part
   const [pageIndex, setPageIndex] = useState(1);
@@ -70,6 +71,7 @@ export default function Products({ cats1 }) {
     if (url) {
       const currentCat = url.split("&cat=")[1].split("&")[0] || " ";
       const currentviewLimit = url.split("&viewLimit=")[1].split("&")[0] || " ";
+      setBoldCat(cat);
       if (currentCat !== cat && cat !== "") {
         setUrl(
           baseUrl +
@@ -120,7 +122,7 @@ export default function Products({ cats1 }) {
           <div className="border border-gray-200  my-2 px-3 py-6 flex flex-col gap-y-2">
             <h3 className="font-bold text-2xl text-center">CATEGORIES :</h3>
             <button
-              className="text-gray-400 font-medium"
+              className={( boldCat!=='' ?'text-gray-400 font-medium':'text-black font-bold')}
               onClick={() => setCat("")}
             >
               {" "}
@@ -129,7 +131,7 @@ export default function Products({ cats1 }) {
             {cats?.map((cat) => (
               <button
                 key={cat?.name}
-                className="text-gray-400 font-medium uppercase"
+                className={"uppercase " +( boldCat!==cat.name ?'text-gray-400 font-medium ':'text-black font-bold')}
                 onClick={() => setCat(cat.name)}
               >
                 {cat.name}

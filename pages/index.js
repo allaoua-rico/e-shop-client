@@ -24,7 +24,7 @@ export default function Home({ cats }) {
         <Header />
         <Nav />
         <Slider />
-        <NewArrivals />
+        {/* <NewArrivals /> */}
         <ProductArea cats={JSON.parse(cats)} />
         {/* <Press/> */}
       </div>

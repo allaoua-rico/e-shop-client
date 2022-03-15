@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useStateValue } from "../components/stateProvider";
 
 export default function Details({ product }) {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket,user }, dispatch] = useStateValue();
   const router = useRouter();
 
   const [number, setNumber] = useState(1);
@@ -38,6 +38,9 @@ export default function Details({ product }) {
   useEffect(() => {
     setNumber(1);
   }, [router.asPath]);
+  useEffect(() => {
+    console.log(user)
+  }, [user]);
   return (
     <div className="">
       <div className=" mx-[15px] sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">

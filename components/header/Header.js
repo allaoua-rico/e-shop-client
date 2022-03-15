@@ -14,41 +14,43 @@ import MenuDrawer from "./MenuDrawer";
 import SearchInput from "./SearchInput";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useStateValue } from "../stateProvider";
-import {getBasketTotal} from "../reducer"
+import { getBasketTotal } from "../reducer";
 export default function Header() {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ user, basket }, dispatch] = useStateValue();
   const [carttoggleState, setCarttoggleState] = useState(false);
   const [menutoggleState, setMenutoggleState] = useState(false);
   const [total, setTotal] = useState(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     setTotal(getBasketTotal(basket));
-  },[basket])
+  }, [basket]);
   const lg = useMediaQuery("(max-width:1023px)");
   return (
     <div className="flex py-7 lg:py-[60px] lg:border-b-[#dadada] lg:border-b  lg:px-0 px-4 justify-around items-center ">
       <div className="hidden lg:inline">
         <SearchInput />
       </div>
-      <Link href={"/"}>
-        <div className="cursor-pointer">
+      <Link href={"/"} passHref>
+        <a className="cursor-pointer">
           <Image
             width={lg ? 109 : 130}
             height={lg ? 19 : 25}
             layout="fixed"
             src={"/logo.png"}
           />
-        </div>
+        </a>
       </Link>
       <div className="flex gap-x-3 justify-between items-center ">
-        <Link href="/login">
-          <div className="flex items-center sm:gap-x-4 cursor-pointer sm:mr-7 group">
-            <BsPerson className="w-auto h-7 group-hover:fill-red-500  duration-[400ms]" />
-            <a className="group-hover:text-red-500 duration-[400ms] sm:inline hidden">
-              Log In / Register
-            </a>
-          </div>
-        </Link>
+        {user == null && (
+          <Link href="/login">
+            <div className="flex items-center sm:gap-x-4 cursor-pointer sm:mr-7 group">
+              <BsPerson className="w-auto h-7 group-hover:fill-red-500  duration-[400ms]" />
+              <a className="group-hover:text-red-500 duration-[400ms] sm:inline hidden">
+                Log In / Register
+              </a>
+            </div>
+          </Link>
+        )}
 
         {/* <BsHeart className='w-10 h-5 hover:fill-red-500 '/> */}
         <Badge

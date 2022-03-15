@@ -15,14 +15,16 @@ import * as yup from "yup";
 import { CircularProgress } from "@mui/material";
 import Contact from "../components/Contact";
 import { useStateValue } from "../components/stateProvider";
+import { useRouter } from "next/router";
 
 export default function Login() {
-  const [{basket, user}, dispatch]= useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
   const [logReg, setLogReg] = useState(1);
   const [actualPassword, setActualPassword] = useState("");
   const [actualEmail, setActualEmail] = useState();
   const [responseMsg, setResponseMsg] = useState();
   const [resSpinner, setResSpinner] = useState(false);
+  const router = useRouter();
 
   const validationSchema = yup.object({
     email: yup
@@ -94,16 +96,16 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         setResSpinner(false);
-        console.log(data);
-        // data.message === "Successfully loggedIn" &&
-        //   dispatch({
-        //     type: "SET_USER",
-        //     user: {
-        //       username: data.username,
-        //       token: data.token,
-        //        role:data.role[0]
-        //     },
-        //   });
+        // console.log(data);
+        data.message === "Successfully loggedIn" &&
+          dispatch({
+            type: "SET_USER",
+            user: {
+              username: data.username,
+              token: data.token,
+              role: data.role[0],
+            },
+          });
 
         data.message === "Email already assigned to an account." &&
           setActualEmail(values.email);
@@ -114,14 +116,14 @@ export default function Login() {
           setResponseMsg(data.message);
       });
   };
-  useEffect(() => {  
-    console.log(user)
-    if(user?.username!==null && user?.username!==undefined){
-        // localStorage.setItem("storageUser", JSON.stringify(user));
-        // let saved=JSON.parse(localStorage.getItem("storageUser"));
-        // saved.username!==null && saved.username!==undefined  && navigate('/');
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      localStorage.setItem("storageUser", JSON.stringify(user));
+      let saved = JSON.parse(localStorage.getItem("storageUser"));
+      saved && router.back();
     }
-},[user]);
+  }, [user]);
   const formik = useFormik({
     initialValues: {
       email: "aaa@gmail.com",
@@ -292,7 +294,9 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <Contact />
+      <div className=" mx-[15px] sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px] ">
+        <Contact />
+      </div>
     </div>
   );
 }

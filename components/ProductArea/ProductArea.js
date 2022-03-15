@@ -8,19 +8,20 @@ import { IoIosArrowForward } from "react-icons/io";
 export default function ProductArea({ cats }) {
   const baseUrl = `/api/products?page=`;
   const [url, setUrl] = useState(baseUrl + 1);
+  const [boldCat, setBoldCat] = useState(" ");
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data } = useSWR(url, fetcher);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data]);
   useEffect(() => {
-    console.log(url);
-  }, [url]);
+    // console.log(url);
+  }, [boldCat]);
 
   function setUrlIndexAndCat(index, cat) {
     //fct that take params: index and cat and change only one of them or both
-
+    setBoldCat(cat)
     // const currentIndex= url.split('?page=')[1];
     const currentCat = url.split("&cat=")[1] || " ";
     if (currentCat !== cat && cat !== "") {
@@ -54,16 +55,17 @@ export default function ProductArea({ cats }) {
   });
   let pageIndex = 1;
   return (
-    <div className="w-full text-center overflow-visible ">
+    <div className="w-full text-center overflow-visible mt-28">
       <div className="mb-12">
         <h2 className="text-[31px]">
-          <span className="font-extrabold">Best </span> Seller
+          <span className="font-extrabold">Explore </span> Our Products
         </h2>
-        <p className="text-[#9f99b3]">Top our product best selling</p>
+        {/* <p className="text-[#9f99b3]">Top our product best selling</p> */}
       </div>
       <div className="flex justify-center items-center md:justify-between  w-full flex-wrap md:flex-nowrap">
         <div className="flex justify-center md:justify-start gap-x-8 mb-4 w-full text-[15px] flex-wrap">
           <button
+            className={ boldCat!==' ' ? "text-gray-400 ": 'font-bold text-black'}
             onClick={() => {
               setUrlIndexAndCat(1, " ");
             }}
@@ -74,7 +76,7 @@ export default function ProductArea({ cats }) {
           {cats?.map((cat) => (
             <button
               key={cat.name}
-              className="text-gray-400"
+              className={ boldCat!==cat.name ? "text-gray-400 ": 'font-bold text-black'}
               onClick={() => {
                 setUrlIndexAndCat(1, cat.name);
               }}

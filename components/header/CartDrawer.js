@@ -8,7 +8,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { getBasketTotal } from "../reducer";
 
 export default function CartDrawer({ toggle, returnValue }) {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{user, basket }, dispatch] = useStateValue();
   let slicedArray = basketSorter(basket);
   // console.log(basket);
   const [total, setTotal] = useState(0);
@@ -96,10 +96,11 @@ export default function CartDrawer({ toggle, returnValue }) {
           <div className="font-medium	">${total}.00</div>
         </div>
         <div className="w-[250px] flex flex-col gap-y-[10px] mt-6">
-          <button className="h-[50px] w-full bg-black hover:bg-red-500 duration-[400ms] text-white font-medium  ">
+          {/* <button className="h-[50px] w-full bg-black hover:bg-red-500 duration-[400ms] text-white font-medium  ">
             View Cart
-          </button>
-          <Link href={"/Checkout"}>
+          </button> */}
+          {!user && "You are not logged in , you will be redirected to the login page before"}
+          <Link href={"/checkout"}>
             <button className="h-[50px] w-full bg-black hover:bg-red-500 duration-[400ms] text-white font-medium ">
               Chekcout
             </button>

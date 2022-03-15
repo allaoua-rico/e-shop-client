@@ -87,7 +87,7 @@ export default function Slider() {
                     Est itaque inventore
                   </p>
 
-                  <Link passhref href="/product-details">
+                  <Link passhref href="/products">
                     <a>
                       <div
                         className={
