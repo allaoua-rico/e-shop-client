@@ -21,6 +21,9 @@ const categorySchema= new mongoose.Schema({
   //   console.log(err);
   
   // }); 
-  export default mongoose.models.ProductCategory || mongoose.model("ProductCategory", categorySchema);
 
-// module.exports = mongoose.model('ProductCategory', categorySchema,'productscategories');
+  // for nodejs
+  // export default mongoose.models.ProductCategory || mongoose.model("ProductCategory", categorySchema);
+
+  //for express
+module.exports =mongoose.models.ProductCategory || mongoose.model('ProductCategory', categorySchema,'productscategories');

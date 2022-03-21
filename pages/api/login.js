@@ -41,8 +41,8 @@ async function handler(req, res) {
           if (isCorrect) {
             // const isAdmin= dbUser.username=="test" ? true : false
             const payload = {
-              id: dbUser.email,
-              username: dbUser.username,
+              // id: dbUser.email,
+              username: dbUser.email,
               role: dbUser.role,
             };
             jwt.sign(

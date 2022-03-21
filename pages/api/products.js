@@ -5,7 +5,7 @@ import Corshandler from '../../backLib/cors'
  async function handler(req, res) {
   await dbConnect();
   const page = req.query.page;
-  const viewLimit = req.query.viewLimit;
+  const viewLimit = req.query.viewLimit; 
   let catId;
 
   if (req.query.cat) {

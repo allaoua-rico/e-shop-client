@@ -33,10 +33,10 @@ export default function Contact() {
       <div className="flex flex-col gap-y-3 md:flex-row gap-x-9 md:items-center md:my-20 lg:my-40">
         <div>
           <h2 className="flex gap-x-2 text-4xl md:text-4xl font-light">
-            <span className="font-semibold">Contact </span> Me
+            <span className="font-semibold">Keep  </span> Connected
           </h2>
           <p className="text-[#999999] py-2">
-            Reach me by sending me a message:
+            Get updates by subscribe our weekly newsletter
           </p>
         </div>
         <form
@@ -45,13 +45,13 @@ export default function Contact() {
           className=" h-fit pb-2 flex items-center w-full border-b border-[#999999]"
         >
           <div className="basis-11/12">
-            <textarea
-              type="text"
+            <input
+              type="email"
               required
-              className="bg-transparent w-full p-4 outline-0	resize-none"
-              placeholder="Send me a message"
-              label="msg"
-              name="message"
+              className="bg-transparent w-full p-4 outline-0	"
+              placeholder="Enter Your Email"
+              label="Email"
+              name="email"
             />
           </div>
           <button

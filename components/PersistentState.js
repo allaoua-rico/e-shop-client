@@ -12,7 +12,7 @@ export default function PersistentState({ children }) {
       ) {
         dispatch({
           type: "SET_USER",
-          user: { username: saved.username, token: saved.token },
+          user: { username: saved.username, token: saved.token,role: saved.role, },
         });
       }
     }

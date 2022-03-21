@@ -12,5 +12,4 @@ function MyApp({ Component, pageProps }) {
     </StateProvider>
   );
 }
-
 export default MyApp;

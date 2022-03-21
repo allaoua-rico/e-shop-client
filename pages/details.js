@@ -38,12 +38,12 @@ export default function Details({ product }) {
   useEffect(() => {
     setNumber(1);
   }, [router.asPath]);
-  useEffect(() => {
-    console.log(user)
-  }, [user]);
+  // useEffect(() => {
+  //   console.log(user)
+  // }, [user]);
   return (
     <div className="">
-      <div className=" mx-[15px] sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
+      <div className=" mx-4 sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
         <Header />
       </div>
 
@@ -106,9 +106,9 @@ export default function Details({ product }) {
           </div>
           <DetailsDesc details={details ? details : {}} />
           <RelatedProducts
-            brand={details.brand}
-            cat={details.category_id._id}
-            id={details._id}
+            brand={details?.brand}
+            cat={details?.category_id?._id}
+            id={details?._id}
           />
         </div>
         <div className="mx-[15px] ">

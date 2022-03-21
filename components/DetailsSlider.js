@@ -16,8 +16,8 @@ import InnerImageZoom from "react-inner-image-zoom";
 export default function DetailsSlider({ product }) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const [transX, setTransX] = useState(0);
-  const [transY, setTransY] = useState(0);
+  // const [transX, setTransX] = useState(0);
+  // const [transY, setTransY] = useState(0);
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
@@ -29,7 +29,7 @@ export default function DetailsSlider({ product }) {
     setOpen(false);
     // setSelectedValue(value);
   };
-  const height = 400;
+  // const height = 400;
   let imgRef = useRef(null);
 
   // useEffect(() => {

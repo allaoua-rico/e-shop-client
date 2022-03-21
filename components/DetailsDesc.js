@@ -51,8 +51,8 @@ export default function DetailsDesc({ details }) {
             <div className="basis-1/2 max-w-[200px]">Category:</div>
             <span className="font-normal basis-1/2">
               {" "}
-              {details?.category_id.name.charAt(0).toUpperCase() +
-                details?.category_id.name.slice(1)}
+              {details?.category_id?.name.charAt(0).toUpperCase() +
+                details?.category_id?.name.slice(1)}
             </span>
           </div>
           <div className="font-bold py-1 flex">

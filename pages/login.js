@@ -126,7 +126,7 @@ export default function Login() {
   }, [user]);
   const formik = useFormik({
     initialValues: {
-      email: "aaa@gmail.com",
+      email: "standardUser@gmail.com",
       password: "123456789",
       cPassword: "123456789",
     },
