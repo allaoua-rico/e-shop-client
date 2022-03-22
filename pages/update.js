@@ -16,7 +16,7 @@ import Product from "../models/product";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 
-export default function update({ cats, product1, id }) {
+export default function Update({ cats, product1, id }) {
   const product = JSON.parse(product1);
   const [{ user }, dispatch] = useStateValue();
   const [disabled, setDisabled] = useState(false);

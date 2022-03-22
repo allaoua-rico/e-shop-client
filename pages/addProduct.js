@@ -13,7 +13,7 @@ import { CircularProgress } from "@mui/material";
 import { useStateValue } from "../components/stateProvider";
 import { useRouter } from "next/router";
 
-export default function addProduct({ cats }) {
+export default function AddProduct({ cats }) {
   const [{ user }, dispatch] = useStateValue();
   const [disabled, setDisabled] = useState(false);
   const [imagesArray, setImagesArray] = useState([]);
