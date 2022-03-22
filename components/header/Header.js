@@ -77,7 +77,7 @@ export default function Header() {
         <div className="sm:inline hidden">{total}.00</div>
         <AiOutlineMenu
           onClick={() => setMenutoggleState(true)}
-          className="lg:hidden w-auto h-6 ml-1 cursor-pointer"
+          className=" w-auto h-6 ml-1 cursor-pointer"
         />
       </div>
       <CartDrawer
