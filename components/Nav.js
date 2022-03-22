@@ -10,9 +10,9 @@ export default function Nav() {
             <Link href={'/products'}>
             <a>SHOP
             </a></Link>
-            <Link href={'/contact'}>
+            {/* <Link href={'/contact'}>
                 <a>
-                CONTACT   </a></Link>
+                CONTACT   </a></Link> */}
 
       </div>
   )
