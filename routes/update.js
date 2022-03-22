@@ -35,8 +35,12 @@ router.post(
       const { _id,imagesArray } = await Product.findOne({ _id: req.body.id }).lean().exec();
       const uploader = async (path) => await cloudinary.uploads(path, `e-shop`);
       let newArray = [];
-      // cloudinary2.api.delete_resources_by_prefix(`e-shop/${}`);
-    console.log(imagesArray)
+      imagesArray.map(image=>{
+        const url = image.split("e-shop/")[1].split(".png")[0];
+        cloudinary2.api.delete_resources_by_prefix(`e-shop/${url}`);
+      })
+      // 
+    // console.log(imagesArray)
       for (const path of imgUrlArray) {
         const newPath = await uploader(path);
         newArray.push(newPath.url);

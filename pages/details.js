@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useStateValue } from "../components/stateProvider";
 
 export default function Details({ product }) {
-  const [{ basket,user }, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
   const router = useRouter();
 
   const [number, setNumber] = useState(1);
@@ -119,9 +119,14 @@ export default function Details({ product }) {
   );
 }
 export async function getServerSideProps({ query }) {
+  let product
+  try {
+    product= await Product.findOne({ _id: query.id })
+      .populate("category_id", "name")
+      .lean();
+  } catch (err) {
+    console.log(err);
+  }
   await dbConnect();
-  const product = await Product.findOne({ _id: query.id })
-    .populate("category_id", "name")
-    .lean();
   return { props: { product: JSON.stringify(product) } };
 }

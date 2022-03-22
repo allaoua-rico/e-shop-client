@@ -14,9 +14,7 @@ const cloudinary = require("../backLib/cloudinary.js");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.post("/", 
-verifyJWT,
- upload.array("images"), async (req, res) => {
+router.post("/", verifyJWT, upload.array("images"), async (req, res) => {
   try {
     //on the guide he imported datauti, he should have imported datauriParser, read the doc
     const dUri = new DatauriParser();
@@ -65,7 +63,7 @@ verifyJWT,
     } else {
       catId = undefined;
     }
-    console.log(catId);
+    // console.log(catId);
     const product = new Product({
       title: req.body.title,
       price: req.body.price,
@@ -74,23 +72,18 @@ verifyJWT,
       category_id: catId,
       brand: req.body.brand,
     });
-    let productDoc = await product
+    product
       .save()
-      // .then(result => {
-      //     let temp= result.toObject();
-      //     console.log(temp);
-
-      // //     res.json(temp)
-      // })
+      .then((doc) => {
+        const { _id } = doc.toObject();
+        _id && res.json({ msg: "Product Added successfully", _id });
+      })
       .catch((err) => {
         console.log(err),
           res.status(500).json({
             error: err,
           });
       });
-    const {_id} = productDoc.toObject();
-    productObject && res.json({msg:"Product Added successfully",_id});
-    // console.log(productobject)
   } catch (error) {
     console.log(error);
   }

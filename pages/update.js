@@ -29,7 +29,7 @@ export default function update({ cats, product1, id }) {
 
   const [inputFiles, setInputFiles] = useState([]);
   const [inputImages, setInputImages] = useState([]);
-  const [pageImagesArray, setPageImagesArray] = useState(product.imagesArray);
+  const [pageImagesArray, setPageImagesArray] = useState(product?.imagesArray);
   const [filesArray, setFilesArray] = useState([]);
 
   const validationSchema = yup.object({
