@@ -11,7 +11,7 @@ import RelatedProducts from "../components/RelatedProducts";
 import Contact from "../components/Contact";
 import Link from "next/link";
 import { useStateValue } from "../components/stateProvider";
-
+import Head from "next/head";
 export default function Details({ product }) {
   const [{ basket, user }, dispatch] = useStateValue();
   const router = useRouter();

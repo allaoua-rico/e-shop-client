@@ -16,7 +16,7 @@ import { CircularProgress } from "@mui/material";
 import Contact from "../components/Contact";
 import { useStateValue } from "../components/stateProvider";
 import { useRouter } from "next/router";
-
+import Head from "next/head";
 export default function Login() {
   const [{ basket, user }, dispatch] = useStateValue();
   const [logReg, setLogReg] = useState(1);

@@ -13,8 +13,8 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import ProductsList from "../components/ProductArea/ProductsList";
 import ProductForList from "../components/ProductArea/ProductForList";
-import RelatedProducts from "../components/RelatedProducts";
-
+// import RelatedProducts from "../components/RelatedProducts";
+import Head from "next/head";
 export default function Products({ cats1 }) {
   const cats = JSON.parse(cats1);
   // params for request

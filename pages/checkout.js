@@ -7,7 +7,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import Header from "../components/header/Header";
 import Stripe from "../components/Stripe";
 import { useRouter } from "next/router";
-
+import Head from "next/head";
 export default function Checkout() {
   const [{ user,basket }, dispatch] = useStateValue();
   let slicedArray = basketSorter(basket);

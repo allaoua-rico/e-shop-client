@@ -12,7 +12,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { CircularProgress } from "@mui/material";
 import { useStateValue } from "../components/stateProvider";
 import { useRouter } from "next/router";
-
+import Head from "next/head";
 export default function AddProduct({ cats }) {
   const [{ user }, dispatch] = useStateValue();
   const [disabled, setDisabled] = useState(false);
