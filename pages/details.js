@@ -43,6 +43,11 @@ export default function Details({ product }) {
   // }, [user]);
   return (
     <div className="">
+              <Head>
+          <title>Norda</title>
+          <meta name="description" content="E-commerce web app" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
       <div className=" mx-4 sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
         <Header />
       </div>

@@ -123,6 +123,11 @@ export default function addProduct({ cats }) {
   });
   return (
     <div>
+              <Head>
+          <title>Norda</title>
+          <meta name="description" content="E-commerce web app" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
       <Header />
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
         <Link passHref href={"/"}>

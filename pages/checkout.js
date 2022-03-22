@@ -40,6 +40,11 @@ export default function Checkout() {
   }, [user]);
   return (
     <div>
+              <Head>
+          <title>Norda</title>
+          <meta name="description" content="E-commerce web app" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
       <Header />
       <div className=" mx-[15px] sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
         <div className=" mt-[60px] mx-[15px] flex flex-col gap-y-16">
