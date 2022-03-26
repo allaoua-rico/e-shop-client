@@ -17,8 +17,9 @@ export default function SearchInput() {
   const fetcher = (url) =>
     fetch(url)
       .then((r) => r.json())
-      .then((res) =>
-        setProductsArray(res.map((obj) => ({ label: obj.title, id: obj._id })))
+      .then((res) =>{
+      console.log(res)
+        setProductsArray(res.map((obj) => ({ label: obj.title, id: obj._id })))}
       );
 
   useSWR(input.replace(/\s/g, "").length && url, fetcher);
@@ -39,10 +40,12 @@ export default function SearchInput() {
             options={productsArray}
             onChange={(e, val) => setInput(val || "")}
             noOptionsText="No results found"
-            renderOption={(props, option) => 
-              <Link passHref href={`/details?id=${option.id}`}>
+            renderOption={(props, option) => {
+      console.log(option)
+
+              return <Link passHref href={`/details?id=${option.id}`}>
                 <a className="p-2 border-b-2 block hover:bg-slate-400 hover:text-white">{option.label}</a>
-              </Link>
+              </Link>}
             }
             onInputChange={(e, val) => setInput(val || "")}
             freeSolo
