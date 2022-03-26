@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 
 router.post(
   "/",
-  // verifyJWT,
+  verifyJWT,
   upload.array("images"),
   async (req, res) => {
     try {

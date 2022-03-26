@@ -26,7 +26,7 @@ app
   .prepare()
   .then(() => {
     const server = express();
-    // server.use(express.json());
+    server.use(express.json());
     server.use(cors())
 
     server.use("/api/addProduct", addProductRouter);
