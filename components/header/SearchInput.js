@@ -13,7 +13,6 @@ export default function SearchInput() {
   const [searchClicked, setSearchClicked] = React.useState(false);
 
   const baseUrl = `/api/search?title=`;
-  // const [url, setUrl] = React.useState(baseUrl + input);
   let url = baseUrl + input;
   const fetcher = (url) =>
     fetch(url)
@@ -23,12 +22,6 @@ export default function SearchInput() {
       );
 
   useSWR(input.replace(/\s/g, "").length && url, fetcher);
-
-  // const lg = useMediaQuery("(max-width:1023px)");
-  // React.useEffect(() => {
-  //   console.log(productsArray)
-
-  // }, [productsArray])
 
   return (
     <div className="w-full">
@@ -78,7 +71,6 @@ export default function SearchInput() {
           />
         </div>
       </div>
-      {/* // )} */}
     </div>
   );
 }
