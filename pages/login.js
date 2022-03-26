@@ -118,7 +118,7 @@ export default function Login() {
   };
   useEffect(() => {
     if (user) {
-      console.log(user);
+      // console.log(user);
       localStorage.setItem("storageUser", JSON.stringify(user));
       let saved = JSON.parse(localStorage.getItem("storageUser"));
       saved && router.back();
