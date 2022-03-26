@@ -15,7 +15,7 @@ export default function SearchInput() {
   const baseUrl = `/api/search?title=`;
   let url = baseUrl + input;
   const fetcher = (url) =>
-    fetch(url)
+    fetch(url,{method:'GET'})
       .then((r) => r.json())
       .then((res) =>{
       console.log(res)
