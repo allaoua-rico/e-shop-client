@@ -17,6 +17,7 @@ export default function ProductArea({ cats }) {
   }, [data]);
   useEffect(() => {
     // console.log(url);
+    console.log(boldCat)
   }, [boldCat]);
 
   function setUrlIndexAndCat(index, cat) {

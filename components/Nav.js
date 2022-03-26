@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Nav() {
   return (
-      <div className=' justify-center gap-x-12 h-24 items-center lg:flex hidden'>
+      <div className=' justify-center gap-x-12 h-24 items-center flex '>
             <Link href={'/'}>
                 <a>
                 HOME  </a></Link>

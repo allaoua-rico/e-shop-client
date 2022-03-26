@@ -17,18 +17,7 @@ export default function Product({ id, title, image, price, rating }) {
       color: "#ff9806",
     },
   });
-  //     const addToBasket=  () => {
-  //         dispatch({
-  //           type:"ADD_TO_BASKET",
-  //           item:{
-  //               id:id,
-  //               title:title,
-  //               image:image,
-  //               price:price,
-  //             //   rating:rating
-  //           }
-  //       });
-  //   }
+
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const addToBasket = () => {

@@ -6,6 +6,7 @@ import SearchInput from "./SearchInput";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { useStateValue } from "../stateProvider";
 import { VscDebugDisconnect } from "react-icons/vsc";
+import Nav from "../Nav";
 
 export default function MenuDrawer({ toggle, returnValue }) {
   const [{ user }, dispatch] = useStateValue();
@@ -54,17 +55,32 @@ export default function MenuDrawer({ toggle, returnValue }) {
       >
         <AiOutlineClose className="hover:fill-red-500 h-8" />
       </div>
-      <div className="w-10/12 flex flex-col items-center gap-y-[30px] mx-auto mt-[80px]">
-        <SearchInput />
+
+      <div className="w-10/12  flex flex-col items-center gap-y-[30px] mx-auto mt-[80px]">
+        <div className=" w-full">
+          <SearchInput />
+        </div>
         <hr className="h-[2px] w-full bg-[#ffffff]" />
+        {/* <nav className="flex flex-col gap-y-4"> */}
+          <Link href={"/"}>
+            <a className="w-4/5 text-center duration-500 transition-all ml-8 whitespace-nowrap justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-400 hover:bg-gray-500">
+              HOME{" "}
+            </a>
+          </Link>
+          <Link href={"/products"}>
+            <a className="w-4/5 text-center duration-500 transition-all ml-8 whitespace-nowrap justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-400 hover:bg-gray-500">
+              SHOP
+            </a>
+          </Link>
+        {/* </nav> */}
         {user?.role === "admin" && (
           <Link href={"/addProduct"} passHref>
             <a className="flex items-center w-4/5 gap-x-3 group duration-500 transition-all ml-8 whitespace-nowrap justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-              <AiOutlineFileAdd className="w-7 h-7" />{" "}
-              Add Product
+              <AiOutlineFileAdd className="w-7 h-7" /> Add Product
             </a>
           </Link>
         )}
+
         {user && (
           <a
             onClick={handleSignOut}
@@ -74,7 +90,6 @@ export default function MenuDrawer({ toggle, returnValue }) {
             Log Out
           </a>
         )}
-
         {/* contact */}
       </div>
 

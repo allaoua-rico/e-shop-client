@@ -22,7 +22,9 @@ export default function Home({ cats }) {
         </Head>
 
         <Header />
-        <Nav />
+        <div className="hidden lg:flex justify-center">
+          <Nav />
+        </div>
         <Slider />
         {/* <NewArrivals /> */}
         <ProductArea cats={JSON.parse(cats)} />
