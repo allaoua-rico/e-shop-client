@@ -6,7 +6,7 @@ const corsRouter = require("./routes/cors.js");
 const updateRouter = require("./routes/update.js");
 const removeRouter = require("./routes/remove.js");
 const searchRouter = require("./routes/search.js");
-const iyzicoRouter = require("./routes/iyzico.js");
+var cors = require('cors')
 
 const port = parseInt(process.env.PORT, 10) || 4000;
 const dev = process.env.NODE_ENV !== "production";
@@ -27,13 +27,13 @@ app
   .then(() => {
     const server = express();
     // server.use(express.json());
+    server.use(cors())
+
     server.use("/api/addProduct", addProductRouter);
     server.use("/api/cors", corsRouter);
     server.use("/api/update", updateRouter);
     server.use("/api/remove", removeRouter);
     server.use("/api/search", searchRouter);
-    server.use("/api/iyzico", iyzicoRouter);
-
     
     server.all("*", (req, res) => {
       return handle(req, res);
