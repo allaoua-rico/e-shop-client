@@ -15,14 +15,12 @@ export default function SearchInput() {
   const baseUrl = `/api/search?title=`;
   let url = baseUrl + input;
   const fetcher = (url) =>
-{    
-  console.log(url,`https://${process.env.VERCEL_URL}`)
-  fetch(`https://${process.env.VERCEL_URL}`+url,{method:'GET'})
+    fetch(url,{method:'GET'})
       .then((r) => r.json())
       .then((res) =>{
       console.log(res)
         setProductsArray(res.map((obj) => ({ label: obj.title, id: obj._id })))}
-      );}
+      );
 
   useSWR(input.replace(/\s/g, "").length && url, fetcher);
 
