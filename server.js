@@ -6,7 +6,11 @@ const corsRouter = require("./routes/cors.js");
 const updateRouter = require("./routes/update.js");
 const removeRouter = require("./routes/remove.js");
 const searchRouter = require("./routes/search.js");
+const passwordReset = require("./routes/passwordReset.js");
+
 var cors = require('cors')
+
+
 
 const port = parseInt(process.env.PORT, 10) || 4000;
 const dev = process.env.NODE_ENV !== "production";
@@ -29,6 +33,7 @@ app
     server.use(express.json());
     server.use(cors())
 
+    server.use("/api/password-reset", passwordReset);
     server.use("/api/addProduct", addProductRouter);
     server.use("/api/cors", corsRouter);
     server.use("/api/update", updateRouter);

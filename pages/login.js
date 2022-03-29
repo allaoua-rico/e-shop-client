@@ -17,6 +17,7 @@ import Contact from "../components/Contact";
 import { useStateValue } from "../components/stateProvider";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { SignalCellularNoSimOutlined } from "@material-ui/icons";
 export default function Login() {
   const [{ basket, user }, dispatch] = useStateValue();
   const [logReg, setLogReg] = useState(1);
@@ -24,6 +25,7 @@ export default function Login() {
   const [actualEmail, setActualEmail] = useState();
   const [responseMsg, setResponseMsg] = useState();
   const [resSpinner, setResSpinner] = useState(false);
+  const [passReset, setPassReset] = useState(false);
   const router = useRouter();
 
   const validationSchema = yup.object({
@@ -46,12 +48,13 @@ export default function Login() {
         .oneOf([yup.ref("password")], "Your passwords do not match."),
   });
   const [validation, setValidation] = useState(validationSchema);
+  const validationSchemaReset = yup.object({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+  });
 
-  (async () => {
-    // const res = await validationSchema.isValid(actualEmail);
-    // console.log(actualPassword);
-    // console.log(actualEmail);
-  })();
   useEffect(() => {
     if (actualEmail) {
       console.log(actualEmail);
@@ -85,6 +88,7 @@ export default function Login() {
   }, [actualEmail, actualPassword]);
 
   const handleSubmit = (values) => {
+    console.log("fetch");
     setResSpinner(true);
     fetch("/api/login", {
       method: "POST",
@@ -116,17 +120,40 @@ export default function Login() {
           setResponseMsg(data.message);
       });
   };
+  const handleReset = (values) => {
+    setResponseMsg("");
+    fetch("/api/password-reset", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setResponseMsg(res.msg);
+      });
+  };
   useEffect(() => {
     if (user) {
       // console.log(user);
       localStorage.setItem("storageUser", JSON.stringify(user));
       let saved = JSON.parse(localStorage.getItem("storageUser"));
-      saved && router.back();
+      if (saved) {
+        router.query.red ? router.push("/") : router.back();
+      }
     }
   }, [user]);
+  const formikReset = useFormik({
+    initialValues: {
+      email: "allaoua.boudriou@gmail.com",
+    },
+    validationSchema: validationSchemaReset,
+    onSubmit: (values) => handleReset(values),
+  });
   const formik = useFormik({
     initialValues: {
-      email: "standardUser@gmail.com",
+      email: "allaoua.boudriou@gmail.com",
       password: "123456789",
       cPassword: "123456789",
     },
@@ -140,13 +167,16 @@ export default function Login() {
 
     // console.log("validationcghanger");
   }, [validation]);
+  // useEffect(() => {
+  //   console.log(passReset);
+  // }, [passReset]);
   return (
     <div>
-              <Head>
-          <title>Norda</title>
-          <meta name="description" content="E-commerce web app" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Norda</title>
+        <meta name="description" content="E-commerce web app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header />
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
         <Link href="/" passHref>
@@ -219,30 +249,37 @@ export default function Login() {
                       autoComplete="off"
                       autoFocus
                     />
-                    <TextField
-                      value={formik.values.password}
-                      onChange={formik.handleChange}
-                      error={
-                        formik.touched.password &&
-                        Boolean(formik.errors.password)
-                      }
-                      helperText={
-                        formik.touched.password && formik.errors.password
-                      }
-                      variant="standard"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                    />
                     <div
                       className={
-                        " w-full transition duration-500 " +
-                        (logReg ? "translate-x-[450px]" : " ")
+                        "w-[50vw] max-w-xl transition duration-1000 " +
+                        (passReset && logReg ? "translate-x-[80vw]" : " ")
+                      }
+                    >
+                      <TextField
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.password &&
+                          Boolean(formik.errors.password)
+                        }
+                        helperText={
+                          formik.touched.password && formik.errors.password
+                        }
+                        variant="standard"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                      />
+                    </div>
+                    <div
+                      className={
+                        " w-full transition duration-1000 " +
+                        (logReg ? "translate-x-[100vw]" : " ")
                       }
                     >
                       <TextField
@@ -268,12 +305,18 @@ export default function Login() {
                     </div>
                     <div
                       className={
-                        " w-full transition duration-500 " +
-                        (logReg ? "-translate-y-[80px]" : " ")
+                        " w-full transition duration-700 " +
+                        (logReg ? " -translate-y-[80px] " : " ") +
+                        (passReset && logReg ? " -translate-y-[140px] " : "")
                       }
                     >
                       <Button
-                        type="submit"
+                        type="button"
+                        onClick={() =>
+                          !passReset
+                            ? formik.handleSubmit()
+                            : formikReset.handleSubmit()
+                        }
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
@@ -287,10 +330,32 @@ export default function Login() {
                       >
                         {resSpinner ? (
                           <CircularProgress sx={{ color: "white" }} />
+                        ) : logReg ? (
+                          !passReset ? (
+                            "Sign In"
+                          ) : (
+                            "Reset password"
+                          )
                         ) : (
-                          "Sign In"
+                          "Register"
                         )}
                       </Button>
+                      <div
+                        className={
+                          "flex justify-end mr-5 mt-5" +
+                          (logReg == 0 &&
+                            " opacity-0 transition-all duration-500")
+                        }
+                      >
+                        <button
+                          className="underline"
+                          onClick={() => setPassReset(!passReset)}
+                          disabled={resSpinner || !logReg}
+                          type="button"
+                        >
+                          {passReset ? "Cancel" : "Reset Your password"}
+                        </button>
+                      </div>
                     </div>
                   </Box>
                 </Box>

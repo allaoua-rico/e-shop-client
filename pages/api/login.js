@@ -15,7 +15,7 @@ async function handler(req, res) {
           res.json({ message: "Email already assigned to an account." });
           return
         }
-        // Create admin user doc with hashed password
+        // Create user doc with hashed password
         const saltRounds = 10;
         const hash = bcrypt.hashSync(req.body.password, saltRounds);
         const user = await new User({
