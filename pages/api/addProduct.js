@@ -35,11 +35,7 @@ async function handler(req, res) {
   });
   const uploader = async (path) => await cloudinary.uploads(path, `e-shop`);
 
-// cloudinary.config({ 
-//     cloud_name: 'dwxiuhqh4', 
-//     api_key: '934751755851399', 
-//     api_secret: 'aOJRLhYwYdEIdouJTP59SqlaSTU' 
-//   });
+
   
 // const uploader = async (file,folder) => await cloudinary.uploader.upload(file, (result) => {
 //     return({

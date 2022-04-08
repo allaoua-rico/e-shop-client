@@ -7,6 +7,7 @@ const updateRouter = require("./routes/update.js");
 const removeRouter = require("./routes/remove.js");
 const searchRouter = require("./routes/search.js");
 const passwordReset = require("./routes/passwordReset.js");
+const productsRouter = require("./routes/products.js");
 
 var cors = require('cors')
 
@@ -39,6 +40,9 @@ app
     server.use("/api/update", updateRouter);
     server.use("/api/remove", removeRouter);
     server.use("/api/search", searchRouter);
+    server.use("/api/products", productsRouter);
+
+    
     
     server.all("*", (req, res) => {
       return handle(req, res);
