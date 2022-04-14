@@ -24,9 +24,8 @@ export default function Update({ cats, product1, id }) {
   const formRef = useRef();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-
+  const [responseMsg, setResponseMsg] = useState("");
   const [fetchArray, setFetchArray] = useState([]);
-
   const [inputFiles, setInputFiles] = useState([]);
   const [inputImages, setInputImages] = useState([]);
   const [pageImagesArray, setPageImagesArray] = useState(product?.imagesArray);
@@ -86,8 +85,8 @@ export default function Update({ cats, product1, id }) {
       product.append("id", id);
 
       product.append("category", category1);
-      fetch("/api/update", {
-        method: "POST",
+      fetch("/api/products", {
+        method: "PUT",
         headers: {
           "x-access-token": user.token,
           //   "Content-type": "application/json",
@@ -99,6 +98,7 @@ export default function Update({ cats, product1, id }) {
           //   if(data.msg==='Product Added successfully'){
           //   }
           // console.log(data);
+          data.type === "error" && setResponseMsg(data.message);
           data._id && router.push(`/details?id=${data._id}`);
           setDisabled(false);
         });
@@ -123,7 +123,9 @@ export default function Update({ cats, product1, id }) {
     document.getElementById("images").value = "";
   }, [inputFiles]);
 
-  useEffect(() => filesArray.length > 0 && setImagesMsg(false), [filesArray]);
+  useEffect(() => {
+    console.log(filesArray.length)  
+    filesArray.length > 0 && setImagesMsg(false)}, [filesArray]);
   let i = 0;
 
   useEffect(async () => {
@@ -175,15 +177,17 @@ export default function Update({ cats, product1, id }) {
     let fd = new FormData(form);
     fd.append("product_id", id);
     // console.log(fd.get('id'))
-    fetch("/api/remove", {
-      method: "post",
+    fetch("/api/products", {
+      method: "DELETE",
       headers: {
         "x-access-token": user.token,
       },
       body: fd,
     })
       .then((res) => res.json())
-      .then((res) => res === "Product deleted" && router.push("/"));
+      .then((res) => {
+        res === "Product deleted" && router.push("/");
+      });
   };
   //   console.log(imagesArray);
   useEffect(() => {
@@ -197,11 +201,11 @@ export default function Update({ cats, product1, id }) {
   });
   return (
     <div>
-              <Head>
-          <title>Norda</title>
-          <meta name="description" content="E-commerce web app" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Norda</title>
+        <meta name="description" content="E-commerce web app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header />
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
         <Link passHref href={"/"}>
@@ -344,6 +348,9 @@ export default function Update({ cats, product1, id }) {
               <HiCamera className="cursor-pointer w-8 h-8 mb-2 hover:fill-red-500 transition-all duration-500" />
             </label>
             <div>{imagesMsg && "Please provide at least one image"}</div>
+          </div>
+          <div className="flex justify-center font-bold text-red-500 uppercase">
+            {responseMsg}
           </div>
           <div className="w-full flex flex-col items-center">
             <Button

@@ -7,13 +7,13 @@ import User from "../../models/user";
 
 async function handler(req, res) {
   await dbConnect();
-  const userLoggingIn = req.body;
+  console.log(req.body.op);
   if (req.body.op == "register") {
     User.findOne({ email: req.body.email })
       .then(async (dbUser) => {
-        if(dbUser) {
+        if (dbUser) {
           res.json({ message: "Email already assigned to an account." });
-          return
+          return;
         }
         // Create user doc with hashed password
         const saltRounds = 10;
@@ -26,10 +26,14 @@ async function handler(req, res) {
         console.log(user);
         user
           .save()
-          .then((doc) => res.status(201).json(doc))
+          .then((doc) => {
+            res.statusCode = 201;
+            return res.json({message:'registed',...doc});
+          })
           .catch((err) => {
-            res.status(500).json({ message: "Couldn't create the user" });
-            console.log(err);
+            res.statusCode = 500;
+            return res.json({ message: "Couldn't create the user" });
+            // console.log(err);
           });
       })
       .catch((err) => console.log(err));
@@ -67,42 +71,6 @@ async function handler(req, res) {
         res.json({ message: "Invalid Email" });
       }
     });
-
-    // User.findOne({ email: req.body.email, password: req.body.password })
-    //   .then(async (dbUser) => {
-    //     console.log(dbUser);
-    //   })
-    //   .catch((err) => console.log(err));
   }
-  // console.log(userLoggingIn);
-  // if (!dbUser) {
-  //   return res.json({ message: "Invalid Email or Password" });
-  // }
-  // bcrypt
-  //   .compare(userLoggingIn.password, dbUser.password)
-  //   .then((isCorrect) => {
-  //     console.log(isCorrect);
-  //     if (isCorrect) {
-  //       // const isAdmin= dbUser.username=="test" ? true : false
-  //       const payload = {
-  //         id: dbUser._id,
-  //         username: dbUser.username,
-  //       };
-  //       jwt.sign(
-  //         payload,
-  //         process.env.JWT_SECRET,
-  //         { expiresIn: 86400 },
-  //         (err, token) => {
-  //           if (err) return res.json({ message: err });
-  //           return res.json({
-  //             message: "Success",
-  //             username: dbUser.username,
-  //             token: "Bearer " + token,
-  //             // isAdmin: isAdmin ? true:false
-  //           });
-  //         }
-  //       );
-  //     }
-  //   });
 }
 export default Corshandler(handler);

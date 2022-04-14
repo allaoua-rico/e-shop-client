@@ -1,17 +1,12 @@
 const express = require("express");
 const next = require("next");
 const mongoose = require("mongoose");
-const addProductRouter = require("./routes/addProduct.js");
 const corsRouter = require("./routes/cors.js");
-const updateRouter = require("./routes/update.js");
-const removeRouter = require("./routes/remove.js");
-const searchRouter = require("./routes/search.js");
 const passwordReset = require("./routes/passwordReset.js");
 const productsRouter = require("./routes/products.js");
+const globalErrorController = require("./controllers/errorController.js");
 
-var cors = require('cors')
-
-
+var cors = require("cors");
 
 const port = parseInt(process.env.PORT, 10) || 4000;
 const dev = process.env.NODE_ENV !== "production";
@@ -32,21 +27,19 @@ app
   .then(() => {
     const server = express();
     server.use(express.json());
-    server.use(cors())
+    server.use(cors());
 
     server.use("/api/password-reset", passwordReset);
-    server.use("/api/addProduct", addProductRouter);
     server.use("/api/cors", corsRouter);
-    server.use("/api/update", updateRouter);
-    server.use("/api/remove", removeRouter);
-    server.use("/api/search", searchRouter);
     server.use("/api/products", productsRouter);
 
-    
-    
     server.all("*", (req, res) => {
       return handle(req, res);
     });
+
+    //global error handling middleware
+    server.use(globalErrorController);
+
     server.listen(port, (err) => {
       if (err) throw err;
       console.log(`> Ready on http://localhost:${port}`);

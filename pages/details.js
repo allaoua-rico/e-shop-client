@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useStateValue } from "../components/stateProvider";
 import Head from "next/head";
 export default function Details({ product }) {
+  console.log(JSON.parse(product))
   const [{ basket, user }, dispatch] = useStateValue();
   const router = useRouter();
 

@@ -9,14 +9,24 @@ import ProductsGrid from "../components/ProductArea/ProductsGrid";
 import RangeSlider from "../components/RangeSlider";
 import { BiListUl } from "react-icons/bi";
 import { BsFillGridFill } from "react-icons/bs";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Pagination,
+  Select,
+} from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import ProductsList from "../components/ProductArea/ProductsList";
 import ProductForList from "../components/ProductArea/ProductForList";
-// import RelatedProducts from "../components/RelatedProducts";
 import Head from "next/head";
-export default function Products({ cats1 }) {
+import Contact from "../components/Contact";
+import ProductModel from "../models/product";
+
+export default function Products({ cats1, docsCount1 }) {
   const cats = JSON.parse(cats1);
+  const docsCount = JSON.parse(docsCount1);
+
   // params for request
   const [viewLimit, setviewLimit] = useState(5);
   const [viewType, setViewType] = useState(1);
@@ -27,7 +37,6 @@ export default function Products({ cats1 }) {
   // pagination part
   const [pageIndex, setPageIndex] = useState(1);
 
-  //   console.log(cats);
   const baseUrl = `/api/products?page=`;
   const [url, setUrl] = useState(
     baseUrl + 1 + "&cat=" + cat + "&viewLimit=" + viewLimit
@@ -64,6 +73,7 @@ export default function Products({ cats1 }) {
       );
     }
   });
+  // console.log(data?.length);
 
   const matches = useMediaQuery("(min-width:640px)");
 
@@ -85,9 +95,12 @@ export default function Products({ cats1 }) {
         );
         return;
       }
+      //skip number of products
+      const skip = viewLimit * (pageIndex - 1);
+      console.log(skip);
       setUrl(
         baseUrl +
-          pageIndex +
+          skip +
           "&cat=" +
           cat +
           "&viewLimit=" +
@@ -99,16 +112,16 @@ export default function Products({ cats1 }) {
   }, [viewLimit, cat, pageIndex, sort]);
 
   // useEffect(() => {
-  //   console.log(GridProductElementsArray);
-  // }, [GridProductElementsArray]);
+  //   console.log(url);
+  // }, [url]);
 
   return (
     <div>
-              <Head>
-          <title>Norda</title>
-          <meta name="description" content="E-commerce web app" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Norda</title>
+        <meta name="description" content="E-commerce web app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className=" mx-[15px] sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
         <Header />
       </div>
@@ -127,7 +140,11 @@ export default function Products({ cats1 }) {
           <div className="border border-gray-200  my-2 px-3 py-6 flex flex-col gap-y-2">
             <h3 className="font-bold text-2xl text-center">CATEGORIES :</h3>
             <button
-              className={( boldCat!=='' ?'text-gray-400 font-medium':'text-black font-bold')}
+              className={
+                boldCat !== ""
+                  ? "text-gray-400 font-medium"
+                  : "text-black font-bold"
+              }
               onClick={() => setCat("")}
             >
               {" "}
@@ -136,7 +153,12 @@ export default function Products({ cats1 }) {
             {cats?.map((cat) => (
               <button
                 key={cat?.name}
-                className={"uppercase " +( boldCat!==cat.name ?'text-gray-400 font-medium ':'text-black font-bold')}
+                className={
+                  "uppercase " +
+                  (boldCat !== cat.name
+                    ? "text-gray-400 font-medium "
+                    : "text-black font-bold")
+                }
                 onClick={() => setCat(cat.name)}
               >
                 {cat.name}
@@ -245,7 +267,7 @@ export default function Products({ cats1 }) {
               </Select>
             </FormControl>
           </div>
-          <div className="">
+          <div id='products' className="">
             {viewType || (!matches && !viewType) ? (
               <ProductsGrid
                 index={pageIndex}
@@ -260,12 +282,32 @@ export default function Products({ cats1 }) {
           </div>
         </div>
       </div>
+      <div className="flex justify-center">
+        <Pagination
+          count={Math.ceil(docsCount.count / viewLimit)}
+          onChange={(event, value) => {
+            setPageIndex(value);
+            document.getElementById("products").scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+          page={pageIndex}
+          shape="rounded"
+        />
+      </div>
+      <Contact />
     </div>
   );
 }
 
 export async function getServerSideProps() {
   await dbConnect();
+  const docsCount = await ProductModel.find().estimatedDocumentCount();
   const categories = await ProductCategory.find({}, { _id: 0 }).lean();
-  return { props: { cats1: JSON.stringify(categories) } };
+  return {
+    props: {
+      docsCount1: JSON.stringify({ count: docsCount }),
+      cats1: JSON.stringify(categories),
+    },
+  };
 }

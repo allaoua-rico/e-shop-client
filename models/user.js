@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   email: {
     type: String,
-    required: true,
-    unique: true,
+    required: [true,'an email is required'],
+    unique: [true,'an email must be unique'],
   },
   password: {
     type: String,
-    required: true,
+    required: [true,'a password is required'],
   },
   role: {
     type: [

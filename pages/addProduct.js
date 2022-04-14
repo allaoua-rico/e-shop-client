@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 export default function AddProduct({ cats }) {
   const [{ user }, dispatch] = useStateValue();
+  const [responseMsg, setResponseMsg] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [imagesArray, setImagesArray] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
@@ -26,7 +27,8 @@ export default function AddProduct({ cats }) {
     title: yup
       .string("Enter the title")
       .min(6, "The title should be at least 6 characters long.")
-      .required("The title is required"),
+      // .required("The title is required"),
+      ,
     price: yup.number("Enter the price").required("The price is required"),
     brand: yup
       .string("Enter the brand")
@@ -76,7 +78,7 @@ export default function AddProduct({ cats }) {
       }
       product.append("category", category1);
       //   console.log(product);
-      fetch("/api/addProduct", {
+      fetch("/api/products", {
         method: "POST",
         headers: {
           "x-access-token": user.token,
@@ -86,7 +88,8 @@ export default function AddProduct({ cats }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data);
+          console.log(data);
+          data.type === "error" && setResponseMsg(data.message);
           data._id && router.push(`/details?id=${data._id}`);
           setDisabled(false);
         });
@@ -115,19 +118,19 @@ export default function AddProduct({ cats }) {
     setFilesArray([...filesArray]);
   }
   //   console.log(imagesArray);
-    useEffect(() => {
-      user?.role!=='admin' && router.back();
-  }, [user]);
+  // useEffect(() => {
+  //   user?.role !== "admin" && router.back();
+  // }, [user]);
   const Input = styled("input")({
     display: "none",
   });
   return (
     <div>
-              <Head>
-          <title>Norda</title>
-          <meta name="description" content="E-commerce web app" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Norda</title>
+        <meta name="description" content="E-commerce web app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header />
       <div className="py-11 flex justify-center  font-semibold text-lg bg-[#f0f4f6]">
         <Link passHref href={"/"}>
@@ -271,6 +274,7 @@ export default function AddProduct({ cats }) {
             </label>
             <div>{imagesMsg && "Please provide at least one image"}</div>
           </div>
+          <div className="flex justify-center font-bold text-red-500 uppercase">{responseMsg}</div>
           <div className="w-full flex justify-center">
             <Button
               type="submit"

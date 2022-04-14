@@ -12,15 +12,15 @@ export default function SearchInput() {
   const [productsArray, setProductsArray] = React.useState([]);
   const [searchClicked, setSearchClicked] = React.useState(false);
 
-  const baseUrl = `/api/search?title=`;
+  const baseUrl = `/api/products?title=`;
   let url = baseUrl + input;
   const fetcher = (url) =>
-    fetch(url,{method:'GET'})
+    fetch(url, { method: "GET" })
       .then((r) => r.json())
-      .then((res) =>{
-      console.log(res)
-        setProductsArray(res.map((obj) => ({ label: obj.title, id: obj._id })))}
-      );
+      .then((res) => {
+        console.log(res);
+        setProductsArray(res.map((obj) => ({ label: obj.title, id: obj._id })));
+      });
 
   useSWR(input.replace(/\s/g, "").length && url, fetcher);
 
@@ -41,12 +41,16 @@ export default function SearchInput() {
             onChange={(e, val) => setInput(val || "")}
             noOptionsText="No results found"
             renderOption={(props, option) => {
-      console.log(option)
+              console.log(option);
 
-              return <Link passHref href={`/details?id=${option.id}`}>
-                <a className="p-2 border-b-2 block hover:bg-slate-400 hover:text-white">{option.label}</a>
-              </Link>}
-            }
+              return (
+                <Link passHref href={`/details?id=${option.id}`}>
+                  <a className="p-2 border-b-2 block hover:bg-slate-400 hover:text-white">
+                    {option.label}
+                  </a>
+                </Link>
+              );
+            }}
             onInputChange={(e, val) => setInput(val || "")}
             freeSolo
             onOpen={() => setSearchClicked(true)}

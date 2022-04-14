@@ -100,7 +100,8 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         setResSpinner(false);
-        // console.log(data);
+        console.log(data);
+        data.message === "registed" && setResponseMsg('Registered Successfully, you can logIn')
         data.message === "Successfully loggedIn" &&
           dispatch({
             type: "SET_USER",
@@ -110,7 +111,6 @@ export default function Login() {
               role: data.role[0],
             },
           });
-
         data.message === "Email already assigned to an account." &&
           setActualEmail(values.email);
         data.message === "Invalid Email" && setActualEmail(values.email);
