@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const corsRouter = require("./routes/cors.js");
 const passwordReset = require("./routes/passwordReset.js");
 const productsRouter = require("./routes/products.js");
+const usersRouter = require("./routes/users.js");
 const globalErrorController = require("./controllers/errorController.js");
 
 var cors = require("cors");
@@ -32,6 +33,7 @@ app
     server.use("/api/password-reset", passwordReset);
     server.use("/api/cors", corsRouter);
     server.use("/api/products", productsRouter);
+    server.use("/api/users", usersRouter);
 
     server.all("*", (req, res) => {
       return handle(req, res);

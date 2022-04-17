@@ -1,6 +1,6 @@
 {
     "verbose": true,
     "ignore": ["node_modules", ".next","pages/**/*"],
-    "watch": ["routes/**/*", "server.js","backLib","controllers"],
+    "watch": ["routes/**/*", "server.js","backLib","controllers","models","pages"],
     "ext": "js json"  
   }

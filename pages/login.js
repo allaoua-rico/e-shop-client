@@ -32,7 +32,7 @@ export default function Login() {
     email: yup
       .string("Enter your email")
       .email("Enter a valid email")
-      .required("Email is required7"),
+      .required("Email is required"),
     // .notOneOf([actualEmail], "Email already assigned to an account."),
 
     password: yup
@@ -57,14 +57,13 @@ export default function Login() {
 
   useEffect(() => {
     if (actualEmail) {
-      console.log(actualEmail);
-
+      // console.log(actualEmail);
       setValidation(
         yup.object({
           email: yup
             .string("Enter your email")
             .email("Enter a valid email")
-            .required("Email is required7")
+            .required("Email is required")
             .notOneOf(
               [actualEmail],
               logReg
@@ -88,20 +87,21 @@ export default function Login() {
   }, [actualEmail, actualPassword]);
 
   const handleSubmit = (values) => {
-    console.log("fetch");
+    console.log("/api/users/" + logReg ? "login" : "signup");
     setResSpinner(true);
-    fetch("/api/login", {
+    fetch("/api/users/" + (logReg ? "login" : "signup"), {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ ...values, op: logReg ? "login" : "register" }),
+      body: JSON.stringify({ ...values }),
     })
       .then((res) => res.json())
       .then((data) => {
         setResSpinner(false);
         console.log(data);
-        data.message === "registed" && setResponseMsg('Registered Successfully, you can logIn')
+        data.message === "registed" &&
+          setResponseMsg("Registered Successfully, you can logIn");
         data.message === "Successfully loggedIn" &&
           dispatch({
             type: "SET_USER",
@@ -113,9 +113,11 @@ export default function Login() {
           });
         data.message === "Email already assigned to an account." &&
           setActualEmail(values.email);
-        data.message === "Invalid Email" && setActualEmail(values.email);
-        data.message === "Invalid password" &&
-          setActualPassword(values.password);
+        // data.message === "Invalid Email" && setActualEmail(values.email);
+        // data.message === "Invalid password" &&
+        //   setActualPassword(values.password);
+        data.message === "Invalid email or password" &&
+          setResponseMsg(data.message);
         data.message === "Couldn't create the user" &&
           setResponseMsg(data.message);
       });
@@ -153,23 +155,17 @@ export default function Login() {
   });
   const formik = useFormik({
     initialValues: {
-      email: "allaoua.boudriou@gmail.com",
-      password: "123456789",
-      cPassword: "123456789",
+      email: "",
+      password: "",
+      cPassword: "",
     },
     validationSchema: validation,
     onSubmit: (values) => handleSubmit(values),
   });
   const { validateForm } = formik;
   useEffect(() => {
-    // console.log(validation);
     validateForm();
-
-    // console.log("validationcghanger");
   }, [validation]);
-  // useEffect(() => {
-  //   console.log(passReset);
-  // }, [passReset]);
   return (
     <div>
       <Head>
