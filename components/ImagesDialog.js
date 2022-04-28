@@ -24,10 +24,8 @@ export default function ImagesDialog(props) {
     onClose(value);
   };
   useEffect(() => {
-    // console.log(swiper?.activeIndex);
   }, [swiper?.activeIndex]);
   return (
-    // <div className="flex items-center  ">
       <Dialog
         fullWidth={true}
         maxWidth={"lg"}
@@ -36,7 +34,6 @@ export default function ImagesDialog(props) {
         open={open}
 
       >
-        {/* <div className="flex items-center  justify-between fixed top-[50%] left-0 right-0 mx-5"> */}
           <button
             onClick={() => {
               swiper?.activeIndex == 0

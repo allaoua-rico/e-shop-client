@@ -174,7 +174,7 @@ export default function Login() {
                     <MdLockOutline />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                    {logReg ? "Sign in" : "Register "}
+                    {logReg ? "Sign In" : "Register "}
                   </Typography>
                   <Box
                     component="form"
@@ -337,6 +337,7 @@ function responseHandler(
 ) {
   const { message } = data;
   // Signup response
+  console.log(message)
   message === "registed" &&
     setResponseMsg("Registered Successfully, you can logIn");
   message === "Couldn't create the user" && setResponseMsg(message);
