@@ -5,13 +5,13 @@ const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const cors = require("cors");
 
 const corsRouter = require("./routes/cors.js");
 const productsRouter = require("./routes/products.js");
 const usersRouter = require("./routes/userRoutes.js");
 const globalErrorController = require("./controllers/errorController.js");
 
-var cors = require("cors");
 
 const port = parseInt(process.env.PORT, 10) || 4000;
 const dev = process.env.NODE_ENV !== "production";
