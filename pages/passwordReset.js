@@ -44,13 +44,13 @@ export default function PasswordReset() {
     let form = {
       password: values.password,
       token: router.query.t,
-      user_id: router.query.id,
+      // user_id: router.query.id,
     };
     console.log(form);
 
     setResponseMsg("");
-    fetch(`/api/password-reset/${router.query.id}/${router.query.t}`, {
-      method: "POST",
+    fetch(`/api/users/resetPassword/${router.query.t}`, {
+      method: "PATCH",
       headers: {
         "Content-type": "application/json",
       },
@@ -58,6 +58,7 @@ export default function PasswordReset() {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res)
         res.msg === "password reset sucessfully." &&  router.push('/login?red=home');
       });
   };

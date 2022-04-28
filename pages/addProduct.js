@@ -10,12 +10,11 @@ import { styled } from "@mui/material/styles";
 import { HiCamera } from "react-icons/hi";
 import { AiFillDelete } from "react-icons/ai";
 import { CircularProgress } from "@mui/material";
-import { useStateValue } from "../components/stateProvider";
 import { useRouter } from "next/router";
 import Head from "next/head";
+
 export default function AddProduct({ cats }) {
-  const [{ user }, dispatch] = useStateValue();
-  const [responseMsg, setResponseMsg] = useState('');
+  const [responseMsg, setResponseMsg] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [imagesArray, setImagesArray] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
@@ -27,69 +26,50 @@ export default function AddProduct({ cats }) {
     title: yup
       .string("Enter the title")
       .min(6, "The title should be at least 6 characters long.")
-      // .required("The title is required"),
-      ,
+      .required("The title is required"),
     price: yup.number("Enter the price").required("The price is required"),
     brand: yup
       .string("Enter the brand")
       .required("Please Choose a brand or add one, please"),
     desc: yup.string("Enter your password"),
-    //   .min(8, "Password should be of minimum 8 characters length"),
-    //   .required("Password is required"),
-    // imagesArray: yup
-    //   .array()
-    //   .min(1, " add ")
-    //   .required("Add a least one image, please"),
     category: yup
       .string("Enter a category")
-      //   .min(8, "Password should be of minimum 8 characters length")
       .required(
         "Choose a category for the product or add one or add an empty space, please"
       ),
   });
   const formik = useFormik({
     initialValues: {
-      title: "title1",
-      category: "shoes",
-      price: "1",
+      title: `title1`,
+      category: "SHOES",
+      price: `100`,
       brand: "ZARA",
       desc: "",
-      //   imagesArray: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => handleSubmit(values),
   });
   const handleSubmit = (values) => {
     setDisabled(true);
-    if (filesArray.length == 0) {
+    if (filesArray.length === 0) {
       setImagesMsg(true);
       setDisabled(false);
     } else {
-      let { category, ...props } = { ...values };
+      let { category } = values;
       const category1 = category.toLowerCase();
-      const form = {
-        category: category1,
-        ...props,
-        // , images: [...filesArray]
-      };
       let product = new FormData(formRef.current);
       for (let i = 0; i < filesArray.length; i++) {
         product.append("images", filesArray[i]);
       }
       product.append("category", category1);
-      //   console.log(product);
       fetch("/api/products", {
         method: "POST",
-        headers: {
-          "x-access-token": user.token,
-          //   "Content-type": "application/json",
-        },
         body: product,
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          data.type === "error" && setResponseMsg(data.message);
+          data.type === "error" && setResponseMsg("An error occured");
+          data.message && setResponseMsg(data.message);
           data._id && router.push(`/details?id=${data._id}`);
           setDisabled(false);
         });
@@ -108,19 +88,12 @@ export default function AddProduct({ cats }) {
       return src;
     });
     setImagesArray([...images]);
-  }, [filesArray]);
-  useEffect(() => {
     filesArray.length > 0 && setImagesMsg(false);
   }, [filesArray]);
   function deleteImage(index) {
-    let tempArray = [...filesArray];
     filesArray.splice(index, 1);
     setFilesArray([...filesArray]);
   }
-  //   console.log(imagesArray);
-  // useEffect(() => {
-  //   user?.role !== "admin" && router.back();
-  // }, [user]);
   const Input = styled("input")({
     display: "none",
   });
@@ -274,7 +247,9 @@ export default function AddProduct({ cats }) {
             </label>
             <div>{imagesMsg && "Please provide at least one image"}</div>
           </div>
-          <div className="flex justify-center font-bold text-red-500 uppercase">{responseMsg}</div>
+          <div className="flex justify-center font-bold text-red-500 uppercase">
+            {responseMsg}
+          </div>
           <div className="w-full flex justify-center">
             <Button
               type="submit"

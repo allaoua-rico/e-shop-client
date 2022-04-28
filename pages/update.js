@@ -16,6 +16,7 @@ import Product from "../models/product";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import Head from "next/head";
+
 export default function Update({ cats, product1, id }) {
   const product = JSON.parse(product1);
   const [{ user }, dispatch] = useStateValue();
@@ -41,15 +42,8 @@ export default function Update({ cats, product1, id }) {
       .string("Enter the brand")
       .required("Please Choose a brand or add one, please"),
     desc: yup.string("Enter your password"),
-    //   .min(8, "Password should be of minimum 8 characters length"),
-    //   .required("Password is required"),
-    // imagesArray: yup
-    //   .array()
-    //   .min(1, " add ")
-    //   .required("Add a least one image, please"),
     category: yup
       .string("Enter a category")
-      //   .min(8, "Password should be of minimum 8 characters length")
       .required(
         "Choose a category for the product or add one or add an empty space, please"
       ),
@@ -71,34 +65,21 @@ export default function Update({ cats, product1, id }) {
       setImagesMsg(true);
       setDisabled(false);
     } else {
-      let { category, ...props } = { ...values };
+      let { category } = values;
       const category1 = category.toLowerCase();
-      const form = {
-        category: category1,
-        ...props,
-        // , images: [...filesArray]
-      };
       let product = new FormData(formRef.current);
       for (let i = 0; i < filesArray.length; i++) {
         product.append("images", filesArray[i]);
       }
       product.append("id", id);
-
       product.append("category", category1);
       fetch("/api/products", {
         method: "PUT",
-        headers: {
-          "x-access-token": user.token,
-          //   "Content-type": "application/json",
-        },
         body: product,
       })
         .then((res) => res.json())
         .then((data) => {
-          //   if(data.msg==='Product Added successfully'){
-          //   }
-          // console.log(data);
-          data.type === "error" && setResponseMsg(data.message);
+          data.type === "error" && setResponseMsg("An error occured");
           data._id && router.push(`/details?id=${data._id}`);
           setDisabled(false);
         });
@@ -124,8 +105,9 @@ export default function Update({ cats, product1, id }) {
   }, [inputFiles]);
 
   useEffect(() => {
-    console.log(filesArray.length)  
-    filesArray.length > 0 && setImagesMsg(false)}, [filesArray]);
+    console.log(filesArray.length);
+    filesArray.length > 0 && setImagesMsg(false);
+  }, [filesArray]);
   let i = 0;
 
   useEffect(async () => {
@@ -189,7 +171,6 @@ export default function Update({ cats, product1, id }) {
         res === "Product deleted" && router.push("/");
       });
   };
-  //   console.log(imagesArray);
   useEffect(() => {
     // console.log(user)
     if (user !== undefined) {

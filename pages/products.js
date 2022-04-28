@@ -110,11 +110,6 @@ export default function Products({ cats1, docsCount1 }) {
       );
     }
   }, [viewLimit, cat, pageIndex, sort]);
-
-  // useEffect(() => {
-  //   console.log(url);
-  // }, [url]);
-
   return (
     <div>
       <Head>

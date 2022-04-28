@@ -13,13 +13,11 @@ import Link from "next/link";
 import { useStateValue } from "../components/stateProvider";
 import Head from "next/head";
 export default function Details({ product }) {
-  console.log(JSON.parse(product))
   const [{ basket, user }, dispatch] = useStateValue();
   const router = useRouter();
 
   const [number, setNumber] = useState(1);
   const details = JSON.parse(product);
-  // console.log(details);
   const addToBasket = () => {
     for (let i = 0; i < number; i++) {
       dispatch({
@@ -34,16 +32,11 @@ export default function Details({ product }) {
       });
     }
   };
-  // useEffect(()=>{
-  // },[product])
   useEffect(() => {
     setNumber(1);
   }, [router.asPath]);
-  // useEffect(() => {
-  //   console.log(user)
-  // }, [user]);
   return (
-    <div className="">
+    <div>
               <Head>
           <title>Norda</title>
           <meta name="description" content="E-commerce web app" />

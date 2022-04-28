@@ -9,30 +9,25 @@ const cloudinary = require("../backLib/cloudinary.js");
 const catchAsync = require("../backLib/catchAsync");
 
 exports.getAllProducts = catchAsync(async (req, res, next) => {
-  const page = req.query.page;
+  const { page, sort, cat } = req.query;
   const viewLimit = req.query.viewLimit;
   let catId;
 
-  if (req.query.cat) {
-    catId = await ProductCategory.findOne({ name: req.query.cat }, { _id: 1 })
+  if (cat) {
+    catId = await ProductCategory.findOne({ name: cat }, { _id: 1 })
       .lean()
       .catch((err) => console.log(err));
   }
   const query = catId ? { category_id: catId } : {};
-  let sort;
-  if (req.query.sort === "recent") {
-    sort = { _id: -1 };
-  }
-  if (req.query.sort === "price") {
-    sort = { price: -1 };
-  }
-  if (req.query.sort === "alphabetical") {
-    sort = { title: 1 };
-  }
+  let querySort;
+
+  if (sort === "recent") querySort = { _id: -1 };
+  if (sort === "price") querySort = { price: -1 };
+  if (sort === "alphabetical") querySort = { title: 1 };
 
   const results = await Product.find(query)
     .lean()
-    .sort(sort)
+    .sort(querySort)
     .skip(page)
     .limit(viewLimit);
 
@@ -41,13 +36,13 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 exports.addProduct = catchAsync(async (req, res, next) => {
   //on the guide he imported datauti, he should have imported datauriParser, read the doc
   const dUri = new DatauriParser();
-
+  
   // transform the buffer to a string
   const dataUri = (file) =>
     dUri.format(path.extname(file.originalname).toString(), file.buffer);
 
   const imgUrlArray = [];
-
+  
   for (var i = 0; i < req.files.length; i++) {
     imgUrlArray.push(dataUri(req.files[i]).content);
   }
@@ -93,7 +88,7 @@ exports.addProduct = catchAsync(async (req, res, next) => {
     brand: req.body.brand,
   });
   const { _id } = await product.save();
-  console.log(_id);
+  
   _id && res.json({ msg: "Product Added successfully", _id });
 });
 exports.updateProduct = catchAsync(async (req, res, next) => {
