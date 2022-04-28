@@ -37,11 +37,11 @@ export default function Details({ product }) {
   }, [router.asPath]);
   return (
     <div>
-              <Head>
-          <title>Norda</title>
-          <meta name="description" content="E-commerce web app" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Norda</title>
+        <meta name="description" content="E-commerce web app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className=" mx-4 sm:mx-auto sm:max-w-xl md:max-w-[700px] lg:max-w-[930px] xl:max-w-[1180px]">
         <Header />
       </div>
@@ -118,9 +118,9 @@ export default function Details({ product }) {
   );
 }
 export async function getServerSideProps({ query }) {
-  let product
+  let product;
   try {
-    product= await Product.findOne({ _id: query.id })
+    product = await Product.findOne({ _id: query.id })
       .populate("category_id", "name")
       .lean();
   } catch (err) {

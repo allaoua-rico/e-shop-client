@@ -1,60 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { SwiperSlide, Swiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import { Scrollbar, Mousewheel } from "swiper";
 import Image from "next/image";
-import { Rating, Tooltip, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { MdAddShoppingCart, MdStar } from "react-icons/md";
 import { BsArrowsFullscreen } from "react-icons/bs";
 import ImagesDialog from "./ImagesDialog";
-// import dynamic from 'next/dynamic'
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
-import InnerImageZoom from "react-inner-image-zoom";
 
 export default function DetailsSlider({ product }) {
+  console.log(product)
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  // const [transX, setTransX] = useState(0);
-  // const [transY, setTransY] = useState(0);
-
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("md"));
-  // console.log(matches);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = (value) => {
-    setOpen(false);
-    // setSelectedValue(value);
-  };
-  // const height = 400;
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   let imgRef = useRef(null);
-
-  // useEffect(() => {
-  //   const img = document.querySelector(".img");
-  //   img.addEventListener("mousemove", function (e) {
-  //     var rect = document.querySelector(".img").getBoundingClientRect();
-  //     const trY = ((e.pageY - rect.top + window.scrollY) / height) * 50 + "%";
-  //     // setTransX(trY)
-  //     const trX =
-  //       ((e.pageX - rect.left + window.scrollX) / rect.width) * 50 + "%";
-  //     // imgRef.current.styles.scale=2
-  //     // setTransX(trX)
-  //     // imgRef.current.style.transform="scale(3)"
-  //     imgRef.current.style.transform = `translateX(${trX}) translateY(${trY}) scale(1.6)`;
-  //     // imgRef.current.style.transformOrigin = `${trX} ${trY}`;
-  //     img.addEventListener("mouseout", function () {
-  //       imgRef.current.style.transform = "";
-  //       // console.log(imgRef.current.style);
-  //     });
-  //   });
-  // });
   return (
     <div className="aspect-[2/3] w-full  max-w-sm">
       <Swiper
-        // direction={matches ? "vertical" : "horizontal"}
         mousewheel={true}
         pagination={true}
         scrollbar={{ dragSize: 250 }}
@@ -63,14 +26,12 @@ export default function DetailsSlider({ product }) {
         className="detailsSwiper"
         onActiveIndexChange={({ activeIndex }) => setIndex(activeIndex)}
       >
-        {product?.imagesArray?.map((image, i) => (
+        {product?.imagesArray?.map(image => image && (
           <SwiperSlide key={image} className="relative">
             <div className="imgContainer">
               <Image
                 ref={imgRef}
-                // zoomPreload ={true}
                 loader={() => image}
-                // className={`img object-contain`}
                 src={image}
                 layout="fill"
                 objectFit="contain"
@@ -88,7 +49,6 @@ export default function DetailsSlider({ product }) {
         ))}
       </Swiper>
       <ImagesDialog
-        // selectedValue={selectedValue}
         indexStart={index}
         images={product?.imagesArray}
         open={open}
