@@ -18,7 +18,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-if (dev) require("dotenv").config();
+if (dev) {require("dotenv").config()};
 
 const limiter = rateLimit({
   //50 requests per minute

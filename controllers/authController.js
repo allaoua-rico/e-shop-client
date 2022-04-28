@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const AppError = require("../backLib/appError");
 const catchAsync = require("../backLib/catchAsync");
-const sendEmail = require("../backLib/sendEmail");
+// const sendEmail = require("../backLib/sendEmail");
 const Email = require("../backLib/sendEmail");
 
 const signToken = (email) => {
