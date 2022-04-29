@@ -1,4 +1,4 @@
-const AppError = require("../backLib/appError.Js");
+const AppError = require("../backLib/appError.js");
 
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
