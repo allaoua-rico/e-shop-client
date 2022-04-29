@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
 const catchAsync = require("../backLib/catchAsync");
-const AppError = require("../backLib/appErroor.js");
+const AppError = require("../backLib/appError.js");
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
