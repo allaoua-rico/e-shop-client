@@ -179,7 +179,7 @@ export default function Login() {
                   <Box
                     component="form"
                     noValidate
-                    sx={{ mt: 1 }}
+                    sx={{ mt: 1, display: "flex", flexDirection: "column" }}
                     autocomplete="off"
                     onSubmit={formik.handleSubmit}
                   >
@@ -203,11 +203,12 @@ export default function Login() {
                       name="email"
                       autoComplete="off"
                       autoFocus
+                      style={{ width: "50vw", maxWidth: "550px" }}
                     />
                     <div
                       className={
-                        "w-[50vw] max-w-xl transition duration-1000 " +
-                        (passReset && logReg ? "translate-x-[80vw]" : " ")
+                        " transition duration-1000 " +
+                        (!passReset || (logReg && "hidden"))
                       }
                     >
                       <TextField
@@ -229,12 +230,13 @@ export default function Login() {
                         type="password"
                         id="password"
                         autoComplete="new-password"
+                        style={{ width: "50vw", maxWidth: "550px" }}
                       />
                     </div>
                     <div
                       className={
                         " w-full transition duration-1000 " +
-                        (logReg ? "translate-x-[100vw]" : " ")
+                        (logReg && " hidden ")
                       }
                     >
                       <TextField
@@ -256,63 +258,53 @@ export default function Login() {
                         type="password"
                         name="cPassword"
                         autoComplete="new-password"
+                        style={{ width: "50vw", maxWidth: "550px" }}
                       />
                     </div>
+
+                    <Button
+                      type="button"
+                      onClick={() => formik.handleSubmit()}
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                      disabled={resSpinner}
+                      style={{
+                        width: "50vw",
+                        maxWidth: "550px",
+                        borderRadius: 35,
+                        backgroundColor: "black",
+                        fontSize: "18px",
+                        color: "white",
+                      }}
+                    >
+                      {resSpinner ? (
+                        <CircularProgress sx={{ color: "white" }} />
+                      ) : logReg ? (
+                        !passReset ? (
+                          "Sign In"
+                        ) : (
+                          "Reset password"
+                        )
+                      ) : (
+                        "Register"
+                      )}
+                    </Button>
                     <div
                       className={
-                        " w-full transition duration-700 " +
-                        (logReg ? " -translate-y-[80px] " : " ") +
-                        (passReset && logReg ? " -translate-y-[140px] " : "")
+                        "flex justify-end mr-5 mt-5 w-full" +
+                        (logReg == 0 &&
+                          " opacity-0 transition-all duration-500")
                       }
                     >
-                      <Button
+                      <button
+                        className="underline"
+                        onClick={() => setPassReset(!passReset)}
+                        disabled={resSpinner || !logReg}
                         type="button"
-                        onClick={
-                          () =>
-                            // !passReset
-                            //   ?
-                            formik.handleSubmit()
-                          // : formikReset.handleSubmit()
-                        }
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                        disabled={resSpinner}
-                        style={{
-                          borderRadius: 35,
-                          backgroundColor: "black",
-                          fontSize: "18px",
-                          color: "white",
-                        }}
                       >
-                        {resSpinner ? (
-                          <CircularProgress sx={{ color: "white" }} />
-                        ) : logReg ? (
-                          !passReset ? (
-                            "Sign In"
-                          ) : (
-                            "Reset password"
-                          )
-                        ) : (
-                          "Register"
-                        )}
-                      </Button>
-                      <div
-                        className={
-                          "flex justify-end mr-5 mt-5" +
-                          (logReg == 0 &&
-                            " opacity-0 transition-all duration-500")
-                        }
-                      >
-                        <button
-                          className="underline"
-                          onClick={() => setPassReset(!passReset)}
-                          disabled={resSpinner || !logReg}
-                          type="button"
-                        >
-                          {passReset ? "Cancel" : "Reset Your password"}
-                        </button>
-                      </div>
+                        {passReset ? "Cancel" : "Reset Your password"}
+                      </button>
                     </div>
                   </Box>
                 </Box>
@@ -337,7 +329,7 @@ function responseHandler(
 ) {
   const { message } = data;
   // Signup response
-  console.log(message)
+  console.log(message);
   message === "registed" &&
     setResponseMsg("Registered Successfully, you can logIn");
   message === "Couldn't create the user" && setResponseMsg(message);

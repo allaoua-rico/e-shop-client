@@ -103,6 +103,7 @@ export default function Slider() {
                   </Link>
                 </div>
                 <img
+                //try with max-w-max max-h-max , it should work fine too
                   className="max-h-[585px] max-w-[1170px]
                   w-auto h-full absolute -right-[110px] xl:-right-0"
                   src={image}
