@@ -12,14 +12,13 @@ const productsRouter = require("./routes/products.js");
 const usersRouter = require("./routes/userRoutes.js");
 const globalErrorController = require("./controllers/errorController.js");
 
-const port = process.env.PORT || 4000;
-const dev = process.env.NODE_ENV !== "production";
-const nextApp = next({ dir: ".", dev });
-const handle = nextApp.getRequestHandler();
 
-if (dev) {
-  require("dotenv").config();
-}
+const port = process.env.PORT|| 4000;
+const dev = process.env.NODE_ENV !== "production";
+const nextApp  = next({ dir: '.', dev });
+const handle = nextApp .getRequestHandler();
+
+if (dev) {require("dotenv").config()};
 
 const limiter = rateLimit({
   //50 requests per minute
@@ -33,32 +32,18 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("connected to mongoose"));
 
-nextApp
+nextApp 
   .prepare()
   .then(() => {
     const server = express();
-
-    if (!dev) {
-      // Enforce SSL & HSTS in production
-      server.use(function (req, res, next) {
-        var proto = req.headers["x-forwarded-proto"];
-        if (proto === "https") {
-          res.set({
-            "Strict-Transport-Security": "max-age=31557600", // one-year
-          });
-          return next();
-        }
-        res.redirect("https://" + req.headers.host + req.url);
-      });
-    }
-
-    server.use("/api", limiter);
+    
+    // server.use("/api", limiter);
     server.use(cookieParser());
     server.use(express.json());
     server.use(cors());
     server.use(mongoSanitize());
     server.use(xss());
-
+    
     server.use("/api/cors", corsRouter);
     server.use("/api/products", productsRouter);
     server.use("/api/users", usersRouter);
