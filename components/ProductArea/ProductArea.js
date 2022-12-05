@@ -12,13 +12,13 @@ export default function ProductArea({ cats }) {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data } = useSWR(url, fetcher);
 
-  useEffect(() => {
-    // console.log(data);
-  }, [data]);
-  useEffect(() => {
-    // console.log(url);
-    console.log(boldCat)
-  }, [boldCat]);
+  // useEffect(() => {
+  //   // console.log(data);
+  // }, [data]);
+  // useEffect(() => {
+  //   // console.log(url);
+  //   console.log(boldCat)
+  // }, [boldCat]);
 
   function setUrlIndexAndCat(index, cat) {
     //fct that take params: index and cat and change only one of them or both
@@ -38,7 +38,7 @@ export default function ProductArea({ cats }) {
   let productElementsArray = [];
   // const data = {
   //   _id: 1,
-  //   title: "title that is really long ",
+  //   title: "title that is really long",
   //   price: 100,
   //   rating: 4,
   //   imagesArray: ["/products/product-16.jpg"],
