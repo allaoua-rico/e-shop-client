@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "next",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
-    "lint": "next lint"
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@emailjs/browser": "^3.4.0",
@@ -33,7 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.3",
     "multer": "^1.4.4",
-    "next": "12.1.0",
+    "next": "^12.1.0",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15",
     "react": "17.0.2",

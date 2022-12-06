@@ -21,7 +21,7 @@ const handle = nextApp .getRequestHandler();
 if (dev) {require("dotenv").config()};
 
 const limiter = rateLimit({
-  //50 requests per minute
+  // 50 requests per minute
   max: 50,
   windowMs: 60 * 1000,
   message: "Too many requests from this IP, please try again in a minute",
@@ -37,7 +37,7 @@ nextApp
   .then(() => {
     const server = express();
     
-    // server.use("/api", limiter);
+    server.use("/api", limiter);
     server.use(cookieParser());
     server.use(express.json());
     server.use(cors());

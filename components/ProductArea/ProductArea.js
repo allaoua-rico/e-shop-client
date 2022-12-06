@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProductsGrid from "./ProductsGrid";
 import Product from "./Product";
 import useSWR from "swr";
@@ -12,17 +12,9 @@ export default function ProductArea({ cats }) {
   const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data } = useSWR(url, fetcher);
 
-  // useEffect(() => {
-  //   // console.log(data);
-  // }, [data]);
-  // useEffect(() => {
-  //   // console.log(url);
-  //   console.log(boldCat)
-  // }, [boldCat]);
-
   function setUrlIndexAndCat(index, cat) {
     //fct that take params: index and cat and change only one of them or both
-    setBoldCat(cat)
+    setBoldCat(cat);
     // const currentIndex= url.split('?page=')[1];
     const currentCat = url.split("&cat=")[1] || " ";
     if (currentCat !== cat && cat !== "") {
@@ -36,13 +28,7 @@ export default function ProductArea({ cats }) {
     }
   }
   let productElementsArray = [];
-  // const data = {
-  //   _id: 1,
-  //   title: "title that is really long",
-  //   price: 100,
-  //   rating: 4,
-  //   imagesArray: ["/products/product-16.jpg"],
-  // };
+
   data?.map((item) => {
     productElementsArray.push(
       <Product
@@ -54,7 +40,6 @@ export default function ProductArea({ cats }) {
       />
     );
   });
-  let pageIndex = 1;
   return (
     <div className="w-full text-center overflow-visible mt-28">
       <div className="mb-12">
@@ -66,7 +51,9 @@ export default function ProductArea({ cats }) {
       <div className="flex justify-center items-center md:justify-between  w-full flex-wrap md:flex-nowrap">
         <div className="flex justify-center md:justify-start gap-x-8 mb-4 w-full text-[15px] flex-wrap">
           <button
-            className={ boldCat!==' ' ? "text-gray-400 ": 'font-bold text-black'}
+            className={
+              boldCat !== " " ? "text-gray-400 " : "font-bold text-black"
+            }
             onClick={() => {
               setUrlIndexAndCat(1, " ");
             }}
@@ -77,7 +64,9 @@ export default function ProductArea({ cats }) {
           {cats?.map((cat) => (
             <button
               key={cat.name}
-              className={ boldCat!==cat.name ? "text-gray-400 ": 'font-bold text-black'}
+              className={
+                boldCat !== cat.name ? "text-gray-400 " : "font-bold text-black"
+              }
               onClick={() => {
                 setUrlIndexAndCat(1, cat.name);
               }}
@@ -93,7 +82,7 @@ export default function ProductArea({ cats }) {
           </div>
         </Link>
       </div>
-      <ProductsGrid index={pageIndex} products={productElementsArray} />
+      <ProductsGrid products={productElementsArray} />
     </div>
   );
 }

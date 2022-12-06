@@ -262,17 +262,11 @@ export default function Products({ cats1, docsCount1 }) {
               </Select>
             </FormControl>
           </div>
-          <div id='products' className="">
+          <div id="products" className="">
             {viewType || (!matches && !viewType) ? (
-              <ProductsGrid
-                index={pageIndex}
-                products={GridProductElementsArray}
-              />
+              <ProductsGrid products={GridProductElementsArray} />
             ) : (
-              <ProductsList
-                index={pageIndex}
-                products={ListProductElementsArray}
-              />
+              <ProductsList products={ListProductElementsArray} />
             )}
           </div>
         </div>
