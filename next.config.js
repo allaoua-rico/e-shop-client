@@ -6,7 +6,7 @@ module.exports = {
     return [
       {
         source: "/api/:path*",
-        destination: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/:path*`, // Proxy to Backend
+        destination: `https://e-shop-server-z043.onrender.com/api/:path*`, // Proxy to Backend
       },
     ];
   },
