@@ -1,9 +1,6 @@
 import * as React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { chainPropTypes } from "@mui/utils";
 import { Autocomplete, TextField } from "@mui/material";
-import { Box } from "@mui/system";
 import useSWR from "swr";
 import Link from "next/link";
 
@@ -41,8 +38,7 @@ export default function SearchInput() {
             onChange={(e, val) => setInput(val || "")}
             noOptionsText="No results found"
             renderOption={(props, option) => {
-              console.log(option);
-
+              // console.log(option);
               return (
                 <Link passHref href={`/details?id=${option.id}`}>
                   <a className="p-2 border-b-2 block hover:bg-slate-400 hover:text-white">
